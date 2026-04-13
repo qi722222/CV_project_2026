@@ -1,0 +1,13 @@
+# 模型权重（太大）
+*.pt
+*.pth
+*.ckpt
+
+# 中间缓存
+part1/masks_cache/
+part2/masks/
+__pycache__/
+*.pyc
+
+# pip 缓存
+pip_cache/
