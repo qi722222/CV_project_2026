@@ -1,0 +1,15 @@
+# SAM2 environment - verified on RTX A6000 + CUDA 12.4 driver, Python 3.10
+# Install torch first:
+#   pip install torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cu121
+# Then: pip install -r requirements_sam2.txt
+# Finally: cd <sam2_repo> && pip install -e .
+
+torch==2.1.2
+torchvision==0.16.2
+numpy==1.26.4
+opencv-python==4.13.0.92
+hydra-core==1.3.2
+iopath==0.1.10
+pillow>=9.4.0
+tqdm>=4.66.1
+matplotlib>=3.7
