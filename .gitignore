@@ -1,13 +1,47 @@
-# 模型权重（太大）
+# 模型权重
 *.pt
 *.pth
 *.ckpt
+*.safetensors
 
-# 中间缓存
-part1/masks_cache/
-part2/masks/
+# 中间产物 - mask 缓存
+masks_cache/
+**/masks_cache/
+
+# 输出视频
+outputs/
+**/outputs/
+*.mp4
+*.avi
+*.mov
+
+# sweep 实验中间产物
+sweep/
+**/sweep/
+logs/
+**/logs/
+
+# Wild video 原始帧
+wild_frames/
+
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.egg-info/
+.ipynb_checkpoints/
 
-# pip 缓存
-pip_cache/
+# 环境
+envs/
+.venv/
+venv/
+
+# 系统
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# 临时
+*.log
+*.tmp

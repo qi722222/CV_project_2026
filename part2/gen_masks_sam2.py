@@ -8,7 +8,7 @@ gen_masks_sam2.py
         --video   /data2/shared/project3/bmx-trees \
         --output  /data2/jli657/project3/part2/masks_cache/bmx-trees \
         --sam2_dir /data2/jli657/sam2 \
-        --point_x 320 --point_y 240
+        --yolo_weight /data2/jli657/project3/part1/yolov8x-seg.pt
 """
 
 import os
@@ -25,10 +25,12 @@ def parse_args():
     parser.add_argument("--video",     required=True, help="输入帧序列文件夹")
     parser.add_argument("--output",    required=True, help="mask 输出文件夹")
     parser.add_argument("--sam2_dir",  required=True, help="SAM2 仓库根目录")
-    parser.add_argument("--point_x",   type=int, required=True, help="第一帧点击的 x 坐标")
-    parser.add_argument("--point_y",   type=int, required=True, help="第一帧点击的 y 坐标")
+    parser.add_argument("--yolo_weight", default="/data2/jli657/project3/part1/yolov8x-seg.pt", help="YOLO 权重路径")
     parser.add_argument("--config",    default="configs/sam2.1/sam2.1_hiera_l.yaml")
-    parser.add_argument("--checkpoint", default="checkpoints/sam2.1_hiera_large.pt")
+    parser.add_argument("--checkpoint", default="checkpoints/sam2.1_hiera_tiny.pt")
+    # 在 parse_args 里加一个参数
+    parser.add_argument("--classes", type=int, nargs="+", default=[0, 1], help="YOLO 类别 ID，默认 [0,1] 即 person+bicycle；tennis 用 [0]")
+    parser.add_argument("--conf", type=float, default=0.3)
     return parser.parse_args()
 
 
@@ -39,6 +41,7 @@ def main():
     sys.path.insert(0, args.sam2_dir)
 
     from sam2.build_sam import build_sam2_video_predictor
+    from ultralytics import YOLO
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"[SAM2] 使用设备: {device}")
@@ -50,6 +53,10 @@ def main():
     )
     print("[SAM2] 模型加载成功！")
 
+    # 加载 YOLO 模型
+    yolo_model = YOLO(args.yolo_weight)
+    print("[YOLO] 模型加载成功！")
+
     video_dir = args.video
     frame_files = sorted([
         f for f in os.listdir(video_dir)
@@ -59,26 +66,30 @@ def main():
 
     inference_state = predictor.init_state(video_path=video_dir)
 
-    point = np.array([[args.point_x, args.point_y]], dtype=np.float32)
-    label = np.array([1], dtype=np.int32)
+    # 对第一帧运行 YOLO 获取 bbox
+    first_frame_path = os.path.join(video_dir, frame_files[0])
+    results = yolo_model(first_frame_path, classes=args.classes, conf=args.conf)
+    boxes = results[0].boxes.xyxy.cpu().numpy()
+    print(f"[YOLO] 第一帧检测到 {len(boxes)} 个 bbox")
 
-    _, out_obj_ids, out_mask_logits = predictor.add_new_points_or_box(
-        inference_state=inference_state,
-        frame_idx=0,
-        obj_id=1,
-        points=point,
-        labels=label,
-    )
-    print(f"[SAM2] 第一帧提示点设置完成: ({args.point_x}, {args.point_y})")
+    # 方案 B：每个 bbox 一个 obj_id，分别追踪
+    for i, box in enumerate(boxes):
+        predictor.add_new_points_or_box(
+            inference_state=inference_state,
+            frame_idx=0,
+            obj_id=i + 1,  # 1, 2, 3...
+            box=box.astype(np.float32),
+        )
+    print(f"[SAM2] 第一帧 bbox 设置完成，共 {len(boxes)} 个对象")
 
     os.makedirs(args.output, exist_ok=True)
 
     print("[SAM2] 开始传播 mask...")
     for frame_idx, obj_ids, mask_logits in predictor.propagate_in_video(inference_state):
-        mask = (mask_logits[0, 0] > 0.0).cpu().numpy()
-        mask_img = (mask * 255).astype(np.uint8)
-        frame_name = frame_files[frame_idx]
-        out_name = Path(frame_name).stem + ".png"
+        # mask_logits 形状 (num_objs, 1, H, W)
+        combined = (mask_logits > 0).any(dim=0).squeeze().cpu().numpy()  # 并集
+        mask_img = (combined * 255).astype(np.uint8)
+        out_name = f"{frame_idx:05d}.png"
         cv2.imwrite(os.path.join(args.output, out_name), mask_img)
 
     print(f"[SAM2] 完成！共保存 {len(frame_files)} 帧 mask 到: {args.output}")
