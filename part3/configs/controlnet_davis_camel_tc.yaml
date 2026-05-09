@@ -1,0 +1,44 @@
+sequence_name: camel
+
+paths:
+  input_frames_dir: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/camel
+  masks_dir: /home/jli657/shared_data/project3/DAVIS/Annotations/480p/camel
+  output_dir: /home/jli657/my_storage2_1T/project3/part3/outputs/controlnet/davis-camel-tc
+
+keyframe_policy:
+  mask_area_ratio_threshold: 0.01
+  max_keyframes_per_sequence: 3
+  global_max_keyframes: 5
+  force_frame_indices: [0, 40, 79]
+
+refine:
+  mode: sd_controlnet
+  prompt: clean desert background, remove camel naturally, preserve sand and horizon structure
+  negative_prompt: artifacts, blurry, distorted geometry, duplicated objects, ghosting
+  use_controlnet: true
+  controlnet_type: canny
+  sd_model_id: runwayml/stable-diffusion-inpainting
+  controlnet_model_id: lllyasviel/control_v11p_sd15_canny
+  canny_low_threshold: 100
+  canny_high_threshold: 200
+  mask_dilate_px: 9
+  num_inference_steps: 15
+  guidance_scale: 7.5
+  strength: 0.98
+  controlnet_conditioning_scale: 0.8
+  max_infer_side: 512
+  temporal_consistency:
+    enabled: true
+    edge_blend_enabled: true
+    edge_feather_px: 7
+    color_match_enabled: true
+    temporal_ema_enabled: true
+    temporal_ema_alpha: 0.65
+
+runtime:
+  seed: 42
+  device: auto
+  clean_output_dir: true
+  save_debug_overlays: true
+  export_refined_video: true
+  video_fps: 6

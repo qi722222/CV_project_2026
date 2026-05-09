@@ -1,0 +1,25 @@
+{
+  "sequence": "tennis",
+  "method_id": "diffueraser_gtmask_v3",
+  "readable_name": "DiffuEraser GT mask v3（max_img_size=640, dilation=4）",
+  "family": "DiffuEraser",
+  "comparison_type": "inpaint_only",
+  "audit_status": "exploratory",
+  "version": "v3",
+  "mask_protocol": "davis_gt",
+  "baseline": "diffueraser_gtmask_v2",
+  "stage_gate": "N/A — 已触发三版停止条件",
+  "next_decision": "三版停止条件已触发。DiffuEraser 不扩序列，不进 full_pipeline。归档为 exploratory。后续可探索修改 blending 策略或更大 neighbor_length。",
+  "failure_reason": "v3 (dilation=4, max_img_size=640): PSNR_proxy=30.42 (-4.56dB vs 基线 34.98)，SSIM=0.871 (vs 0.930)。三版一致低于基线，确认停止。",
+  "metrics": {},
+  "evidence_paths": {
+    "input_video": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v3/input_video.mp4",
+    "input_mask": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v3/input_mask.mp4",
+    "masked_in": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v3/masked_in.mp4",
+    "inpaint_out": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v3/inpaint_out.mp4",
+    "mask_frames": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v3/mask_frames",
+    "manifest": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v3/run_manifest.json",
+    "log": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v3/run.log",
+    "script_path": "/data3/jli657/project3/part3/inpainting/run_diffueraser_gtmask.py"
+  }
+}

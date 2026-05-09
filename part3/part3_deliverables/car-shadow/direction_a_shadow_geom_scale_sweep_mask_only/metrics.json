@@ -1,0 +1,24 @@
+{
+  "sequence": "car-shadow",
+  "method_id": "direction_a_shadow_geom_scale_sweep_mask_only",
+  "readable_name": "Direction A car-shadow 阴影几何先验扫参",
+  "family": "direction_a",
+  "comparison_type": "mask_only",
+  "audit_status": "failed_or_exploratory",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {
+    "best_scale": 0.5,
+    "best_JM": 0.823067100530886,
+    "all_scales_source": "/home/jli657/my_storage2_1T/project3/eval/direction_a_shadow_ablation.csv",
+    "source_file": "/home/jli657/my_storage2_1T/project3/eval/direction_a_shadow_ablation.csv"
+  },
+  "evidence_paths": {
+    "source_output_dir": "/data3/jli657/project3/part3/outputs/direction_a/shadow_geom/car-shadow",
+    "log": "/data3/jli657/project3/part3/outputs/shadow_prior.log"
+  }
+}

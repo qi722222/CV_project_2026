@@ -15,6 +15,18 @@ outputs/
 *.avi
 *.mov
 
+# Part3 实验产物大目录（视频帧、mask 帧、inpaint 帧等）
+part3/results/
+part3/results_v2/
+part3/gdino_vlm/masks/
+part3/gdino_vlm/videos/
+part3/gdino_vlm/frames/
+part3/**/__pycache__/
+# Part3 deliverables 里的帧目录（只保留元数据 json/md/csv/sh）
+part3/part3_deliverables/**/mask_frames/
+part3/part3_deliverables/**/repair_frames/
+part3/part3_deliverables/**/keyframes/
+
 # sweep 实验中间产物
 sweep/
 **/sweep/
@@ -45,3 +57,4 @@ venv/
 # 临时
 *.log
 *.tmp
+part3/DELIVERABLES_GUIDE_CN.md

@@ -1,0 +1,28 @@
+{
+  "sequence": "koala",
+  "method_id": "koala_void_full_pipeline",
+  "readable_name": "Koala VOID 生成式视频修复",
+  "family": "direction_c",
+  "comparison_type": "full_pipeline",
+  "audit_status": "exploratory",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {
+    "PSNR_proxy": 13.13,
+    "video": "/data3/jli657/project3/part3/outputs/koala_diffusion/void/final_output/inpaint_out.mp4",
+    "masked_in": "/data3/jli657/project3/part3/outputs/koala_diffusion/void/final_output/masked_in.mp4",
+    "note": "low proxy PSNR due to resolution roundtrip + generative full-frame modification",
+    "source_file": "/data3/jli657/project3/part3/outputs/koala_diffusion/koala_experiment_summary.json"
+  },
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part3/outputs/sam3_multiobj/masks_final/koala",
+    "source_output_dir": "/data3/jli657/project3/part3/outputs/koala_diffusion/void/final_output",
+    "inpaint_out": "/data3/jli657/project3/part3/outputs/koala_diffusion/void/final_output/inpaint_out.mp4",
+    "masked_in": "/data3/jli657/project3/part3/outputs/koala_diffusion/void/final_output/masked_in.mp4",
+    "script_path": "/data3/jli657/project3/part3/inpainting/run_void_koala.py"
+  }
+}

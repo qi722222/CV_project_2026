@@ -1,0 +1,24 @@
+{
+  "sequence": "blackswan",
+  "method_id": "official_sam3_best_mask_only",
+  "readable_name": "官方 SAM3 best-prompt 版本",
+  "family": "direction_a",
+  "comparison_type": "mask_only",
+  "audit_status": "exploratory",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {
+    "JM": 0.954832,
+    "JR": 1.0,
+    "F": 0.919849,
+    "source_file": "/home/jli657/my_storage2_1T/project3/eval/results_official_sam3_best.csv"
+  },
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part3/outputs/official_sam3_best/masks/blackswan",
+    "script_path": "/data3/jli657/project3/part3/direction_a/run_official_sam3_video.py"
+  }
+}

@@ -1,0 +1,56 @@
+policy_path: /data3/jli657/project3/eval/davis_eval_targets.yaml
+
+paths:
+  davis_jpeg_root: /data2/shared/project3/DAVIS/JPEGImages/480p
+
+segmentor:
+  # sam2 | sam3
+  backend: sam2
+
+sam2:
+  sam2_dir: /data2/jli657/sam2
+  config: configs/sam2.1/sam2.1_hiera_l.yaml
+  checkpoint: checkpoints/sam2.1_hiera_large.pt
+
+sam3:
+  # 需手动下载并放置（如 /data3/jli657/project3/weights/sam3/sam3.pt）
+  checkpoint: /data3/jli657/project3/weights/sam3/sam3.pt
+
+detector:
+  # gdino | yolo
+  primary: gdino
+  yolo_weight: /data3/jli657/project3/yolov8x-seg.pt
+  yolo_conf: 0.3
+
+gdino:
+  # 若本地未安装groundingdino或模型路径缺失，会自动回退到YOLO并在meta中记录
+  model_config_path: /home/jli657/.conda/envs/gdino_env/lib/python3.10/site-packages/groundingdino/config/GroundingDINO_SwinT_OGC.py
+  checkpoint_path: /data3/jli657/project3/weights/gdino/groundingdino_swint_ogc.pth
+  box_threshold: 0.35
+  text_threshold: 0.25
+
+stage2:
+  # 稀疏重锚时的框平滑强度: 越大越保守
+  smooth_alpha: 0.6
+  # 关联IoU低于阈值时保持历史框，抑制错误重锚
+  min_iou_for_update: 0.0
+
+vlm:
+  # MVP阶段可先空，使用policy里的 prompt_text_for_gdino
+  user_intent: ""
+  real_prompt:
+    # 创新点C：真实VLM最小接入开关（失败自动fallback）
+    enable: false
+    model_name: Salesforce/blip-image-captioning-base
+    max_new_tokens: 24
+    # true时允许覆盖policy固定prompt；false时仅在policy缺失时启用
+    force_override_policy_prompt: false
+
+innovation:
+  quality_gated_reanchor:
+    # 创新点A：仅在检测框漂移明显时执行重锚
+    enable: false
+    drift_iou_threshold: 0.55
+  o2o_temporal_association:
+    # 创新点B：启用一对一时序关联（避免重复匹配）
+    enable: false

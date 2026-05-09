@@ -1,0 +1,16 @@
+version: 1
+defaults:
+  gt_root: /data2/shared/project3/DAVIS/Annotations/480p
+  pred_root: /data3/jli657/project3/part3/gdino_vlm/masks/stage1
+  iou_threshold_for_jr: 0.5
+  boundary_tolerance_px: 2
+  strict_missing_predictions: true
+sequences:
+  - sequence_name: tennis
+    eval_mode: union_all_instances
+    pred_subdir: tennis
+    prompt_text_for_gdino: person . tennis racket
+  - sequence_name: bmx-trees
+    eval_mode: union_all_instances
+    pred_subdir: bmx-trees
+    prompt_text_for_gdino: person . bicycle

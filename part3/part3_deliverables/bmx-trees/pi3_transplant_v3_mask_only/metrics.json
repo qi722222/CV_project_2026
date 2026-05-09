@@ -1,0 +1,25 @@
+{
+  "sequence": "bmx-trees",
+  "method_id": "pi3_transplant_v3_mask_only",
+  "readable_name": "Pi3 transplant v3 mask",
+  "family": "direction_b",
+  "comparison_type": "mask_only",
+  "audit_status": "failed",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {
+    "JM": 0.00029618606060892206,
+    "JR": 0.0,
+    "F": 0.000704072513694608,
+    "status": "success",
+    "source_file": "/home/jli657/my_storage2_1T/project3/eval/direction_b_pi3_results.csv"
+  },
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part3/outputs/direction_b/pi3_transplant_v3/bmx-trees",
+    "script_path": "/data3/jli657/project3/part3/direction_b/run_direction_b_pi3_transplant.py"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "sequence": "horsejump-low",
+  "method_id": "vggt4d_vggt_mask_only",
+  "readable_name": "VGGT4D 原始动态发现 mask",
+  "family": "direction_b",
+  "comparison_type": "mask_only",
+  "audit_status": "exploratory",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {
+    "JM": 0.6438,
+    "JR": 1.0,
+    "F": 0.0189,
+    "status": "success",
+    "source_file": "/home/jli657/my_storage2_1T/project3/eval/direction_b_vggt4d_results.csv"
+  },
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part3/outputs/direction_b/vggt4d_vggt/horsejump-low",
+    "script_path": "/data3/jli657/project3/part3/direction_b/run_direction_b_vggt4d.py"
+  }
+}

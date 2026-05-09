@@ -1,0 +1,24 @@
+{
+  "sequence": "blackswan",
+  "method_id": "lama_gtmask_propainter",
+  "readable_name": "LaMa + ProPainter（DAVIS GT mask 统一口径）",
+  "family": "direction_c",
+  "comparison_type": "inpaint_only",
+  "audit_status": "stable",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {},
+  "evidence_paths": {
+    "mask_frames": "/home/jli657/shared_data/project3/DAVIS/Annotations/480p/blackswan",
+    "source_output_dir": "/data3/jli657/project3/part3/results/blackswan/direction_c/lama_gtmask_propainter",
+    "keyframes": "/data3/jli657/project3/part3/results/blackswan/direction_c/lama_gtmask_propainter/lama_keyframes",
+    "repair_frames": "/data3/jli657/project3/part3/results/blackswan/direction_c/lama_gtmask_propainter/pp_input/frames",
+    "inpaint_out": "/data3/jli657/project3/part3/results/blackswan/direction_c/lama_gtmask_propainter/inpaint_out.mp4",
+    "masked_in": "/data3/jli657/project3/part3/results/blackswan/direction_c/lama_gtmask_propainter/masked_in.mp4",
+    "script_path": "/data3/jli657/project3/part3/inpainting/run_phase3_lama_all7.py"
+  }
+}

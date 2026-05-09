@@ -1,0 +1,30 @@
+{
+  "sequence": "koala",
+  "method_id": "vggt4d_sam3_refine_v4_mask_only",
+  "readable_name": "VGGT4D + SAM3 refine v4",
+  "family": "direction_b",
+  "comparison_type": "mask_only",
+  "audit_status": "superseded",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {
+    "status": "success",
+    "source": "vggt4d",
+    "prompt_mode": "centroid",
+    "prompt_frame": "00000",
+    "source_file": "/home/jli657/my_storage2_1T/project3/eval/direction_b_sam3_refined_v4_results.csv",
+    "JM": 0.9440738126553331,
+    "JR": 1.0,
+    "F": 0.19938994630304996,
+    "rough_JM": 0.23531780125695265
+  },
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part3/outputs/direction_b/sam3_refined_v4/vggt4d/koala",
+    "rough_mask_frames": "/data3/jli657/project3/part3/outputs/direction_b/vggt4d_vggt/koala",
+    "script_path": "/data3/jli657/project3/part3/direction_b/run_direction_b_sam3_refine.py"
+  }
+}

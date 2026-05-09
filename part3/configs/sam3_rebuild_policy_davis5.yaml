@@ -1,0 +1,28 @@
+defaults:
+  gdino_reanchor_stride: 10
+
+sequences:
+  - sequence_name: tennis
+    prompt_text_for_gdino: person . tennis racket
+    gdino_reanchor_stride: 10
+    notes: fast motion + multi-object
+
+  - sequence_name: bmx-trees
+    prompt_text_for_gdino: person . bicycle
+    gdino_reanchor_stride: 8
+    notes: camera motion strong
+
+  - sequence_name: koala
+    prompt_text_for_gdino: koala
+    gdino_reanchor_stride: 10
+    notes: small texture details
+
+  - sequence_name: bear
+    prompt_text_for_gdino: bear
+    gdino_reanchor_stride: 10
+    notes: deformable foreground
+
+  - sequence_name: camel
+    prompt_text_for_gdino: camel
+    gdino_reanchor_stride: 10
+    notes: large smooth background

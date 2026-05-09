@@ -1,0 +1,30 @@
+{
+  "sequence": "blackswan",
+  "method_id": "vggt4d_sam3_refine_v4_mask_only",
+  "readable_name": "VGGT4D + SAM3 refine v4",
+  "family": "direction_b",
+  "comparison_type": "mask_only",
+  "audit_status": "superseded",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {
+    "status": "success",
+    "source": "vggt4d",
+    "prompt_mode": "centroid",
+    "prompt_frame": "00000",
+    "source_file": "/home/jli657/my_storage2_1T/project3/eval/direction_b_sam3_refined_v4_results.csv",
+    "JM": 0.955750233936849,
+    "JR": 1.0,
+    "F": 0.35556634280596067,
+    "rough_JM": 0.208184264096809
+  },
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part3/outputs/direction_b/sam3_refined_v4/vggt4d/blackswan",
+    "rough_mask_frames": "/data3/jli657/project3/part3/outputs/direction_b/vggt4d_vggt/blackswan",
+    "script_path": "/data3/jli657/project3/part3/direction_b/run_direction_b_sam3_refine.py"
+  }
+}

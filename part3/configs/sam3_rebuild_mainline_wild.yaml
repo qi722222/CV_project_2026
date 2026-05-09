@@ -1,0 +1,45 @@
+policy_path: /home/jli657/my_storage2_1T/project3/part3/configs/sam3_rebuild_policy_wild.yaml
+
+paths:
+  davis_jpeg_root: /data2/jli657/project3/wild_frames
+
+segmentor:
+  backend: sam3
+
+sam2:
+  sam2_dir: /data2/jli657/sam2
+  config: configs/sam2.1/sam2.1_hiera_l.yaml
+  checkpoint: checkpoints/sam2.1_hiera_large.pt
+
+sam3:
+  checkpoint: /data3/jli657/project3/weights/sam3/sam3.pt
+
+detector:
+  primary: gdino
+  yolo_weight: /data3/jli657/project3/yolov8x-seg.pt
+  yolo_conf: 0.25
+
+gdino:
+  model_config_path: /home/jli657/.conda/envs/gdino_env/lib/python3.10/site-packages/groundingdino/config/GroundingDINO_SwinT_OGC.py
+  checkpoint_path: /data3/jli657/project3/weights/gdino/groundingdino_swint_ogc.pth
+  box_threshold: 0.35
+  text_threshold: 0.25
+
+stage2:
+  smooth_alpha: 0.6
+  min_iou_for_update: 0.0
+
+vlm:
+  user_intent: remove person and preserve stable background
+  real_prompt:
+    enable: true
+    model_name: Salesforce/blip-image-captioning-base
+    max_new_tokens: 24
+    force_override_policy_prompt: false
+
+innovation:
+  quality_gated_reanchor:
+    enable: true
+    drift_iou_threshold: 0.55
+  o2o_temporal_association:
+    enable: true

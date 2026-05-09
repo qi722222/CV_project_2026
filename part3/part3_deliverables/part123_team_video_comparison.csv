@@ -1,0 +1,7 @@
+sequence,Part2_Baseline_maskJM,Part2_Baseline_PSNR,Part2_Baseline_SSIM,Part3_A_maskJM,Part3_A_PSNR,Part3_A_SSIM,Part3_B1_maskJM,Part3_B1_PSNR,Part3_B1_SSIM,Part3_B5_maskJM,Part3_B5_PSNR,Part3_B5_SSIM,Part3_ABBest_maskJM,Part3_ABBest_PSNR,Part3_ABBest_SSIM
+tennis,0.9320,32.5143,0.8998,0.9468,33.5709,0.9160,0.7571,nan,nan,0.8735,nan,nan,0.9468,35.1285,0.9264
+blackswan,0.9550,nan,nan,0.9549,33.4755,0.8844,0.2082,nan,nan,0.9558,nan,nan,0.9558,33.4822,0.8844
+horsejump-low,0.7230,nan,nan,0.8574,33.5237,0.9103,0.6438,nan,nan,0.9331,nan,nan,0.9331,33.4754,0.9085
+bmx-trees,0.6400,32.3113,0.9229,0.7455,35.1406,0.9429,0.4421,nan,nan,0.6887,nan,nan,0.7455,35.2173,0.9432
+car-shadow,0.9750,nan,nan,0.9749,31.7644,0.9121,0.7589,nan,nan,0.9785,nan,nan,0.9785,37.4591,0.9193
+koala,nan,nan,nan,0.9482,33.8071,0.8026,0.2353,nan,nan,0.9373,nan,nan,0.9482,32.2091,0.8346

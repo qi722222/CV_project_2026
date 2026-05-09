@@ -1,0 +1,6 @@
+sequence_name,num_frames,iou_mean,J_mean,JR_at_tau,F_mean,eval_mode,pred_subdir
+bmx-trees,80,0.745507,0.745507,0.937500,0.796067,union_all_instances,bmx-trees
+tennis,70,0.931044,0.931044,1.000000,0.959095,union_all_instances,tennis
+blackswan,50,0.955155,0.955155,1.000000,0.928346,union_all_instances,blackswan
+car-shadow,40,0.974851,0.974851,1.000000,0.949308,union_all_instances,car-shadow
+horsejump-low,60,0.723656,0.723656,1.000000,0.769825,union_all_instances,horsejump-low

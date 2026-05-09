@@ -1,0 +1,24 @@
+{
+  "sequence": "tennis",
+  "method_id": "diffueraser_gtmask_v4",
+  "readable_name": "DiffuEraser GT mask v4（hard blend，消除软融合泄漏）",
+  "family": "DiffuEraser",
+  "comparison_type": "inpaint_only",
+  "audit_status": "exploratory",
+  "version": "v4",
+  "mask_protocol": "davis_gt",
+  "baseline": "diffueraser_gtmask_v1",
+  "stage_gate": "PSNR_proxy>=34.88 AND SSIM>=0.92",
+  "next_decision": "v4 通过 PSNR_proxy 门槛（36.28 ≥ 34.88）。下一步：扩到 bmx-trees 和 car-shadow 验证泛化性。",
+  "failure_reason": "",
+  "metrics": {},
+  "evidence_paths": {
+    "inpaint_out": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v4/inpaint_out.mp4",
+    "input_video": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v4/input_video.mp4",
+    "input_mask": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v4/input_mask.mp4",
+    "masked_in": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v4/masked_in.mp4",
+    "mask_frames": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v4/mask_frames",
+    "manifest": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v4/run_manifest.json",
+    "script_path": "/data3/jli657/project3/part3/inpainting/apply_hard_blend.py"
+  }
+}

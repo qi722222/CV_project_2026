@@ -1,0 +1,45 @@
+defaults:
+  boundary_tolerance_px: 2
+  gdino_reanchor_stride: 10
+  gt_root: /home/jli657/shared_data/project3/DAVIS/Annotations/480p
+  iou_threshold_for_jr: 0.5
+  pred_root: /home/jli657/my_storage2_1T/project3/part2/masks_cache
+  strict_missing_predictions: false
+description: "DAVIS\u8BC4\u4F30\u76EE\u6807\u5355\u4E00\u771F\u6E90\u3002\u6240\u6709\
+  \u811A\u672C\u548C\u62A5\u544A\u5FC5\u987B\u5F15\u7528\u672C\u6587\u4EF6\uFF0C\u907F\
+  \u514D\u53E3\u5F84\u6F02\u79FB\u3002\n"
+sequences:
+- eval_mode: union_all_instances
+  gdino_reanchor_stride: 16
+  notes: "\u76F8\u673A\u8FD0\u52A8\u5F3A\uFF0C\u4F18\u5148\u89C2\u5BDFre-anchor\u662F\
+    \u5426\u51CF\u5C0F\u6F02\u79FB"
+  pred_subdir: bmx-trees_bbox_union
+  prompt_text_for_gdino: person . bicycle
+  sequence_name: bmx-trees
+- eval_mode: union_all_instances
+  gdino_reanchor_stride: 20
+  notes: "\u591A\u76EE\u6807\u4E14\u52A8\u4F5C\u5FEB\uFF0C\u9002\u5408\u770B\u951A\
+    \u70B9\u7A33\u5B9A\u6027"
+  pred_subdir: tennis_v3
+  prompt_text_for_gdino: person . tennis racket
+  sequence_name: tennis
+- eval_mode: union_all_instances
+  gdino_reanchor_stride: 24
+  notes: "\u5355\u4E3B\u4F53\uFF0C\u9002\u5408\u4F5C\u4E3A\u57FA\u7EBF\u5BF9\u7167"
+  pred_subdir: blackswan
+  prompt_text_for_gdino: black swan
+  sequence_name: blackswan
+- eval_mode: union_all_instances
+  gdino_reanchor_stride: 20
+  notes: "\u8F6E\u5ED3\u6E05\u6670\uFF0C\u4FBF\u4E8E\u89C2\u5BDF\u8FB9\u754CF\u503C"
+  pred_subdir: car-shadow
+  prompt_text_for_gdino: car
+  sequence_name: car-shadow
+- eval_mode: union_all_instances
+  gdino_reanchor_stride: 16
+  notes: "\u5FEB\u901F\u5F62\u53D8\u573A\u666F\uFF0C\u68C0\u9A8C\u7A00\u758F\u91CD\
+    \u951A\u6536\u76CA"
+  pred_subdir: horsejump-low
+  prompt_text_for_gdino: horse
+  sequence_name: horsejump-low
+version: 1

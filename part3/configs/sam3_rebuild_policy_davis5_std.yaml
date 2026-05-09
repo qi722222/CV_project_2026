@@ -1,0 +1,28 @@
+defaults:
+  gdino_reanchor_stride: 10
+
+sequences:
+  - sequence_name: tennis
+    prompt_text_for_gdino: person . tennis racket
+    gdino_reanchor_stride: 10
+    notes: fast motion + multi-object
+
+  - sequence_name: bmx-trees
+    prompt_text_for_gdino: person . bicycle
+    gdino_reanchor_stride: 8
+    notes: camera motion strong
+
+  - sequence_name: blackswan
+    prompt_text_for_gdino: black swan
+    gdino_reanchor_stride: 12
+    notes: single object, clean background
+
+  - sequence_name: car-shadow
+    prompt_text_for_gdino: car
+    gdino_reanchor_stride: 10
+    notes: sharp boundary
+
+  - sequence_name: horsejump-low
+    prompt_text_for_gdino: horse . person
+    gdino_reanchor_stride: 8
+    notes: fast deformation

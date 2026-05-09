@@ -1,0 +1,12 @@
+version: 1
+defaults:
+  gt_root: /home/jli657/shared_data/project3/DAVIS/Annotations/480p
+  pred_root: /home/jli657/my_storage2_1T/project3/part3/gdino_vlm/masks/stage2
+  iou_threshold_for_jr: 0.5
+  boundary_tolerance_px: 2
+  strict_missing_predictions: true
+sequences:
+  - sequence_name: tennis
+    eval_mode: union_all_instances
+    pred_subdir: tennis
+    prompt_text_for_gdino: person . tennis racket

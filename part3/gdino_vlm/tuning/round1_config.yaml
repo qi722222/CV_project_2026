@@ -1,0 +1,21 @@
+detector:
+  primary: gdino
+  yolo_conf: 0.3
+  yolo_weight: /data3/jli657/project3/yolov8x-seg.pt
+gdino:
+  box_threshold: 0.35
+  checkpoint_path: /data3/jli657/project3/weights/gdino/groundingdino_swint_ogc.pth
+  model_config_path: /home/jli657/.conda/envs/gdino_env/lib/python3.10/site-packages/groundingdino/config/GroundingDINO_SwinT_OGC.py
+  text_threshold: 0.25
+paths:
+  davis_jpeg_root: /data2/shared/project3/DAVIS/JPEGImages/480p
+policy_path: /data3/jli657/project3/part3/gdino_vlm/tuning/round1_policy.yaml
+sam2:
+  checkpoint: checkpoints/sam2.1_hiera_large.pt
+  config: configs/sam2.1/sam2.1_hiera_l.yaml
+  sam2_dir: /data2/jli657/sam2
+stage2:
+  smooth_alpha: 0.6
+  min_iou_for_update: 0.0
+vlm:
+  user_intent: ''

@@ -1,0 +1,23 @@
+{
+  "sequence": "tennis",
+  "method_id": "diffueraser_gtmask_v2",
+  "readable_name": "DiffuEraser GT mask v2 (mask_dilation_iter=8)",
+  "family": "DiffuEraser",
+  "comparison_type": "inpaint_only",
+  "audit_status": "exploratory",
+  "version": "v2",
+  "mask_protocol": "davis_gt",
+  "baseline": "diffueraser_gtmask_v1",
+  "stage_gate": "PSNR_proxy ≥ 34.88（基线）且 SSIM ≥ 0.92，或 PSNR_proxy 较 v1 改善 ≥ 2dB",
+  "next_decision": "DiffuEraser tennis 三版验证结论（2026-05）：\nv1 (dilation=0): PSNR_proxy=31.42 (-3.56dB vs 基线 34.98), SSIM=0.897\nv2 (dilation=8): PSNR_proxy=31.32 (-3.66dB), SSIM=0.894 — 与 v1 无显著差异\nv3 (dilation=4, max_img_size=640): PSNR_proxy=30.42 (-4.56dB), SSIM=0.871 — 更差\n根本原因：DiffuEraser 使用 soft-blended diffusion 输出，边界 feathering 会轻微污染非 mask 区域。\nPSNR_synthetic（mask 区域）三版均≈8.35，与 ProPainter 持平，说明 mask 内修复质量相当但无提升。\n决策：停止扩序列，归档为 exploratory。不进入 full_pipeline 主线。\n后续可考虑：(1) 修改 blending 策略使其保留背景; (2) 探索更大 neighbor_length 参数。",
+  "failure_reason": "v2 (mask_dilation_iter=8, max_img_size=960): PSNR_proxy=31.3224 vs 基线 34.98 (差 -3.66dB), SSIM=0.8941 vs 基线 0.9298。DiffuEraser soft-blending 会污染非 mask 区域（系统性问题）。",
+  "metrics": {},
+  "evidence_paths": {
+    "manifest": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v2/run_manifest.json",
+    "inpaint_out": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v2/inpaint_out.mp4",
+    "masked_in": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v2/masked_in.mp4",
+    "mask_frames_frames": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v2/mask_frames",
+    "log_path": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v2/run.log",
+    "mask_frames": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v2/mask_frames"
+  }
+}

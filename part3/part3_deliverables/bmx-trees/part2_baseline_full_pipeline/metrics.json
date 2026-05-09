@@ -1,0 +1,21 @@
+{
+  "sequence": "bmx-trees",
+  "method_id": "part2_baseline_full_pipeline",
+  "readable_name": "Part2 YOLO+SAM2+ProPainter 基线完整流程",
+  "family": "baseline",
+  "comparison_type": "full_pipeline",
+  "audit_status": "reference",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {},
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part2/masks_cache/bmx-trees_bbox_union",
+    "source_output_dir": "/data3/jli657/project3/part2/outputs/bmx-trees_v2/bmx-trees",
+    "inpaint_out": "/data3/jli657/project3/part2/outputs/bmx-trees_v2/bmx-trees/inpaint_out.mp4",
+    "masked_in": "/data3/jli657/project3/part2/outputs/bmx-trees_v2/bmx-trees/masked_in.mp4"
+  }
+}

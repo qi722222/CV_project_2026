@@ -1,0 +1,61 @@
+# prompt_scope_search.yaml
+# Task 3: Prompt Policy Search 专用配置
+# 扩展 bmx-trees 和 car-shadow 的候选池，进行系统化搜索
+# 与 prompt_scope.yaml 相同格式，但 sam3_official_prompts 扩展为全量候选
+
+sequences:
+
+  # ---- bmx-trees: 扩展候选池（分层设计）----
+  - sequence_name: bmx-trees
+    constraint: soft
+    hard_targets:
+      - person
+      - bicycle
+    gdino_prompts: "person . bicycle"
+    sam3_official_prompts:
+      # 单目标 - 人物
+      - "person"
+      # 单目标 - 自行车
+      - "bicycle"
+      # 组合描述
+      - "bicycle rider"
+      - "cyclist"
+      - "biker"
+      - "bmx rider"
+      # 多目标复合
+      - "person and bicycle"
+      - "cyclist on bicycle"
+      # 属性增强
+      - "person riding bicycle"
+      - "bmx cyclist"
+      - "mountain biker"
+      # 部件感知
+      - "bicycle wheel"
+      - "bicycle frame"
+    video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/bmx-trees
+
+  # ---- car-shadow: 扩展候选池（分层设计）----
+  - sequence_name: car-shadow
+    constraint: soft
+    hard_targets:
+      - car
+    gdino_prompts: "car"
+    sam3_official_prompts:
+      # 单目标 - 基础
+      - "car"
+      - "sedan"
+      - "automobile"
+      - "vehicle"
+      - "dark car"
+      # 阴影感知
+      - "car and shadow"
+      - "car with shadow"
+      - "car on road with shadow"
+      # 属性增强
+      - "black car"
+      - "dark sedan"
+      - "car driving"
+      # 场景描述
+      - "car on street"
+      - "parked car"
+    video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/car-shadow

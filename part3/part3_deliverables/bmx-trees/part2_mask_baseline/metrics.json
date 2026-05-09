@@ -1,0 +1,23 @@
+{
+  "sequence": "bmx-trees",
+  "method_id": "part2_mask_baseline",
+  "readable_name": "Part2 YOLO+SAM2 基线 mask",
+  "family": "baseline",
+  "comparison_type": "mask_only",
+  "audit_status": "reference",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {
+    "JM": 0.640291,
+    "JR": 0.8875,
+    "F": 0.684978,
+    "source_file": "/home/jli657/my_storage2_1T/project3/eval/results_davis_masks.csv"
+  },
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part2/masks_cache/bmx-trees_bbox_union"
+  }
+}

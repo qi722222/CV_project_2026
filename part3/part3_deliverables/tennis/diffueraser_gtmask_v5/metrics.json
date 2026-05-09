@@ -1,0 +1,25 @@
+{
+  "sequence": "tennis",
+  "method_id": "diffueraser_gtmask_v5",
+  "readable_name": "DiffuEraser GT mask v5（neighbor_length=20, subvideo=70）",
+  "family": "DiffuEraser",
+  "comparison_type": "inpaint_only",
+  "audit_status": "exploratory",
+  "version": "v5",
+  "mask_protocol": "davis_gt",
+  "baseline": "pure_propainter_gtmask",
+  "stage_gate": "PSNR_proxy>=34.88 AND SSIM>=0.92",
+  "next_decision": "未过门槛，归档 exploratory。soft-blending 根本问题需 v4 类硬贴回解决。",
+  "failure_reason": "PSNR_proxy=31.32（-3.56dB vs 基线 34.88）。扩大 neighbor_length/subvideo 未改善非 mask 区域污染。",
+  "metrics": {},
+  "evidence_paths": {
+    "inpaint_out": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v5/inpaint_out.mp4",
+    "input_video": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v5/input_video.mp4",
+    "input_mask": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v5/input_mask.mp4",
+    "masked_in": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v5/masked_in.mp4",
+    "mask_frames": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v5/mask_frames",
+    "manifest": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v5/run_manifest.json",
+    "log": "/data3/jli657/project3/part3/results/tennis/direction_c/diffueraser_gtmask_v5/run.log",
+    "script_path": "/data3/jli657/project3/part3/inpainting/run_diffueraser_gtmask.py"
+  }
+}

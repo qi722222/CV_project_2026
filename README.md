@@ -15,7 +15,7 @@
 |---|---|---|
 | **Part 1** | YOLOv8-Seg + Lucas-Kanade 光流 + 时序背景传播 + cv2.inpaint | ✅ 完成 |
 | **Part 2** | YOLOv8-Seg（bbox 提示）→ SAM 2.1 → ProPainter | ✅ 完成 |
-| **Part 3** | Stable Diffusion Inpainting 关键帧修复（Direction C） | 🚧 进行中 |
+| **Part 3** | GDINO/VLM + SAM2/SAM3 主线 + 创新点消融（Direction C 持续中） | ✅ 主线完成 |
 
 **核心结论**：Part 1 的时序传播方法在剧烈相机运动下会失效（如 `bmx-trees`），出现严重虚影；Part 2 的 ProPainter 通过光流引导传播能正确处理这种情况，体现了"学习式光流"相对"启发式像素借用"的根本优势。
 
@@ -41,7 +41,21 @@ project3/
 │   ├── gen_masks_sam2.py      # YOLO bbox → SAM 2.1
 │   ├── run_propainter.py
 │   └── requirements_*.txt
-└── part3/                     # SD 关键帧修复（开发中）
+└── part3/                     # GDINO/VLM + SAM2/SAM3 主线 + 创新点消融（已完成）
+    ├── README.md              # Part 3 环境与使用
+    ├── direction_a/           # Direction A 主线：GDINO/VLM → SAM3 mask 升级
+    ├── direction_b/           # Direction B 主线：VGGT4D + SAM3 refine
+    ├── inpainting/            # GT mask 公平对比（ProPainter / SDXL / LaMa）
+    ├── pipeline/              # A+B 融合完整流程
+    ├── eval/                  # 量化评估脚本
+    ├── reporting/             # 结果整理与报告生成
+    ├── configs/               # 所有序列配置
+    ├── gdino_vlm/             # GDINO/VLM 子实验
+    ├── part3_deliverables/    # 实验台账、结果表、对比表（轻量 JSON/CSV/MD）
+    │   ├── experiment_registry.csv/json
+    │   ├── part3_results_full_table.md
+    │   └── part123_team_comparison.md
+    └── requirements_controlnet.txt
 ```
 
 ---
@@ -57,7 +71,7 @@ cd CV_project_2026
 
 ### 2. 配置环境
 
-本项目需要**三个独立的 conda 环境**，因为底层模型有依赖冲突（主要是 `torch`、`mmcv`、`hydra` 等）：
+本项目需要**四个独立的 conda 环境**，因为底层模型有依赖冲突（主要是 `torch`、`diffusers`、`hydra` 等）：
 
 ```bash
 # Part 1: YOLO + 经典 CV
@@ -69,6 +83,12 @@ pip install pandas seaborn opencv-python scikit-image imageio imageio-ffmpeg num
 
 # Part 2: SAM 2.1 + ProPainter（需要两个独立环境）
 # 详见 part2/README.md
+
+# Part 3 Stretch: SD Inpainting + ControlNet
+conda create -n controlnet_env python=3.10 -y
+conda activate controlnet_env
+pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+pip install -r part3/requirements_controlnet.txt
 ```
 
 ### 3. 准备数据
@@ -88,6 +108,38 @@ pip install pandas seaborn opencv-python scikit-image imageio imageio-ffmpeg num
 
 详见 [`part1/README.md`](part1/README.md) 与 [`part2/README.md`](part2/README.md)。
 
+### 5. 运行 DAVIS 定量评估（mask-GT）
+
+我们新增了统一口径的评估入口：
+
+- 配置真源：`eval/davis_eval_targets.yaml`
+- 评估脚本：`eval/eval_davis_masks.py`
+- 说明文档：[`eval/README.md`](eval/README.md)
+
+示例命令：
+
+```bash
+conda activate part1_env
+python eval/eval_davis_masks.py \
+  --policy eval/davis_eval_targets.yaml \
+  --output_csv eval/results_davis_masks.csv
+```
+
+当前自动化产出（可直接用于报告草稿）：
+
+- CSV：`eval/results_davis_masks.csv`
+- JSON：`eval/results_davis_masks.json`
+- Markdown 主表：`eval/davis_results_table.md`
+
+报告资产一键生成：
+
+```bash
+conda activate part1_env
+python eval/generate_report_assets.py \
+  --project_root /home/jli657/my_storage2_1T/project3 \
+  --output_dir /home/jli657/my_storage2_1T/project3/report_assets
+```
+
 ---
 
 ## 方法亮点
@@ -104,9 +156,28 @@ pip install pandas seaborn opencv-python scikit-image imageio imageio-ffmpeg num
 - **关键设计**：我们用 **YOLO bbox → SAM2 prompt** 替代手工点击。这样做：(1) 与 Part 1 在语义上对齐（删的是同样的目标类别）(2) 无需人工标注 (3) 避免了 SAM2 point prompt 的歧义（比如点在自行车上不会自动包括骑手）
 - **优势**：能处理相机运动和大面积遮挡
 
-### Part 3 — 生成式精修（进行中）
-- ProPainter 在"背景从未在视频里出现"的情况下会失效（例如一面墙一直被运动的人挡着）
-- 我们探索用 Stable Diffusion Inpainting 修复关键帧，再用光流传播到其他帧
+### Part 3 — GDINO/VLM + SAM2/SAM3 主线 + 创新点消融（已完成）
+
+**核心结论（DAVIS5 Macro JM）**
+
+| Part | 方法 | DAVIS5 Macro JM |
+|---|---|---:|
+| Part 1 | YOLO + Lucas-Kanade + cv2.inpaint | 0.4922 |
+| Part 2 | YOLO + SAM2 + ProPainter | 0.8451 |
+| **Part 3 A+B Best** | GDINO/VLM+SAM3 ∪ VGGT4D+SAM3 refine + ProPainter | **0.9119** |
+
+**方向 A（SAM3 Mask Upgrade）**：`VLM prompt → GDINO → SAM2/SAM3 → mask` 已完成 5 DAVIS 序列 Stage1+Stage2 评估；SAM3 multi-object 主线稳定在 JM=0.8561，创新点消融（QualityGate / O2O / RealVLM）已记录。
+
+**方向 B（Better Mask via Foundation Models）**：VGGT4D 原始 JM=0.5620，经 SAM3 refine 提升至 JM=0.8859；A+B 融合按序列选优达 JM=0.9119。
+
+**inpaint-only 公平对比**：已统一使用 DAVIS annotation / GT mask 协议，三种修复工具（ProPainter / LaMa / SDXL kf5）可直接在相同 mask 输入下做公平比较。结果见 `part3/part3_deliverables/part123_team_comparison.md`。
+
+快速运行（以 pure ProPainter GT mask 为例）：
+
+```bash
+conda run -n propainter_env python3 part3/inpainting/run_propainter_gtmask.py \
+  --seqs tennis bmx-trees blackswan koala horsejump-low car-shadow
+```
 
 ---
 

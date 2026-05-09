@@ -1,0 +1,23 @@
+{
+  "sequence": "bmx-trees",
+  "method_id": "sam3_rebuild_v1_propainter_full_pipeline",
+  "readable_name": "SAM3 rebuild v1 + ProPainter",
+  "family": "direction_a",
+  "comparison_type": "full_pipeline",
+  "audit_status": "exploratory",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {},
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part3/outputs/sam3_rebuild_v1/masks/davis5/bmx-trees",
+    "source_output_dir": "/data3/jli657/project3/part3/outputs/sam3_rebuild_v1/propainter/davis5/bmx-trees",
+    "inpaint_out": "/data3/jli657/project3/part3/outputs/sam3_rebuild_v1/propainter/davis5/bmx-trees/inpaint_out.mp4",
+    "masked_in": "/data3/jli657/project3/part3/outputs/sam3_rebuild_v1/propainter/davis5/bmx-trees/masked_in.mp4",
+    "script_path": "/data3/jli657/project3/part3/direction_a/run_part3_sam3_rebuild.py",
+    "config_path": "/data3/jli657/project3/part3/configs/sam3_rebuild_mainline_davis5.yaml"
+  }
+}

@@ -1,0 +1,3 @@
+sequence_name,num_frames,iou_mean,J_mean,JR_at_tau,F_mean,eval_mode,pred_subdir
+bmx-trees,80,0.478006,0.478006,0.537500,0.522940,union_all_instances,bmx-trees
+tennis,70,0.785951,0.785951,0.957143,0.808257,union_all_instances,tennis

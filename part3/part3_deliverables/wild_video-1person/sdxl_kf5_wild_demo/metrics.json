@@ -1,0 +1,16 @@
+{
+  "sequence": "wild_video-1person",
+  "method_id": "sdxl_kf5_wild_demo",
+  "readable_name": "SDXL kf5 + ProPainter（wild demo，SAM3 shadow mask）",
+  "family": "direction_c",
+  "comparison_type": "inpaint_only",
+  "audit_status": "stable",
+  "metrics": {},
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part3/outputs/sam3_multiobj/masks_final/wild_video-1person_with_shadow",
+    "source_output_dir": "/data3/jli657/project3/part3/results/wild_video-1person/direction_c/sdxl_kf5_propainter",
+    "inpaint_out": "/data3/jli657/project3/part3/results/wild_video-1person/direction_c/sdxl_kf5_propainter/inpaint_out.mp4",
+    "masked_in": "/data3/jli657/project3/part3/results/wild_video-1person/direction_c/sdxl_kf5_propainter/masked_in.mp4",
+    "script_path": "/data3/jli657/project3/part3/run_phase2_sdxl_all7.py"
+  }
+}

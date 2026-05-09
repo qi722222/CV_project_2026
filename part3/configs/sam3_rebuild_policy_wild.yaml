@@ -1,0 +1,8 @@
+defaults:
+  gdino_reanchor_stride: 10
+
+sequences:
+  - sequence_name: wild_video-1person
+    prompt_text_for_gdino: person
+    gdino_reanchor_stride: 10
+    notes: user wild video

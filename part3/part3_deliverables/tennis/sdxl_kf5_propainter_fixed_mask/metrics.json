@@ -1,0 +1,28 @@
+{
+  "sequence": "tennis",
+  "method_id": "sdxl_kf5_propainter_fixed_mask",
+  "readable_name": "SDXL kf5 + ProPainter（旧版 SAM3 mask，legacy）",
+  "family": "direction_c",
+  "comparison_type": "inpaint_only",
+  "audit_status": "stable",
+  "version": "legacy",
+  "mask_protocol": "",
+  "baseline": "",
+  "stage_gate": "",
+  "next_decision": "",
+  "failure_reason": "",
+  "metrics": {
+    "PSNR_proxy": 34.2062,
+    "PSNR_synthetic": 9.1275,
+    "SSIM": NaN,
+    "n_frames": 70,
+    "source_file": "/data3/jli657/project3/part3/results/evaluation_summary.csv"
+  },
+  "evidence_paths": {
+    "mask_frames": "/data3/jli657/project3/part3/results/tennis/mask_frames",
+    "source_output_dir": "/data3/jli657/project3/part3/results/tennis/direction_c/sdxl_kf5_propainter",
+    "inpaint_out": "/data3/jli657/project3/part3/results/tennis/direction_c/sdxl_kf5_propainter/inpaint_out.mp4",
+    "masked_in": "/data3/jli657/project3/part3/results/tennis/direction_c/sdxl_kf5_propainter/masked_in.mp4",
+    "script_path": "/data3/jli657/project3/part3/inpainting/run_phase2_sdxl_all7.py"
+  }
+}
