@@ -1,0 +1,70 @@
+{
+  "num_frames_eval": 70,
+  "mask_quality": {
+    "JM": 0.5800208633376792,
+    "JR": 1.0
+  },
+  "video_quality_proxy": {
+    "PSNR": 30.990949000913808,
+    "SSIM": 0.9852476303062042
+  },
+  "video_quality_synthetic": {
+    "PSNR": 25.598895055112145,
+    "SSIM": 0.9458236926084075
+  },
+  "gate_policy": {
+    "method_name": "unknown_method",
+    "features": {
+      "mask_area_mean": 0.06464808464369354,
+      "mask_area_std": 0.009020137274748227,
+      "mask_area_cv": 0.13952675202154108,
+      "boundary_complexity_mean": 0.09350241493888924,
+      "motion_mean": 65.3623188405797,
+      "motion_p95": 85.6,
+      "keyframe_delta_mean": 32.57243999072484,
+      "keyframe_delta_std": 20.89657240655382
+    },
+    "policy_thresholds": {
+      "motion_p95": 18.0,
+      "boundary_complexity_mean": 0.14,
+      "mask_area_cv": 0.65,
+      "keyframe_delta_std": 6.0
+    },
+    "policy_threshold_source": "default",
+    "decision": {
+      "recommended_method": "pure_propainter",
+      "risk_reasons": [
+        "high_motion_p95",
+        "unstable_keyframe_delta"
+      ],
+      "is_high_risk": true
+    },
+    "decision_compare": {
+      "default_thresholds": {
+        "motion_p95": 18.0,
+        "boundary_complexity_mean": 0.14,
+        "mask_area_cv": 0.65,
+        "keyframe_delta_std": 6.0
+      },
+      "default_decision": {
+        "recommended_method": "pure_propainter",
+        "risk_reasons": [
+          "high_motion_p95",
+          "unstable_keyframe_delta"
+        ],
+        "is_high_risk": true
+      },
+      "calibrated_thresholds": {
+        "motion_p95": 89.88,
+        "boundary_complexity_mean": 0.14,
+        "mask_area_cv": 0.65,
+        "keyframe_delta_std": 22.568298199078125
+      },
+      "calibrated_decision": {
+        "recommended_method": "hybrid_temporal_consistency",
+        "risk_reasons": [],
+        "is_high_risk": false
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 """
-generate_vlm_captions.py — Task 5 Phase 1: 生成 VLM captions
+generate_vlm_captions.py — Task 5 Phase 1:  VLM captions
 
-在 gdino_env 中运行（有 transformers），对 4 个 DAVIS 序列生成 BLIP caption，
-同时应用 token_map 映射到 SAM3 prompt，保存到 JSON 文件供后续 SAM3 步骤使用。
+ gdino_env  transformers 4  DAVIS  BLIP caption
+ token_map  SAM3 prompt JSON  SAM3
 """
 from __future__ import annotations
 

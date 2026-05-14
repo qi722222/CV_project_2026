@@ -1,0 +1,5 @@
+sequence,manual_prompts,manual_jm,vlm_caption,vlm_prompts,vlm_jm,legacy_prompts,legacy_jm
+tennis,['tennis player with racket and ball'],0.9468,a man is playing tennis on a clay court,"['person', 'tennis racket']",0.9515,"['person', 'tennis racket']",0.9515
+blackswan,"['bird', 'black swan', 'swan']",0.9547,a black swan swimming in a pond,['bird'],0.9548,['black swan'],0.9543
+horsejump-low,"['horse', 'person']",0.8574,a woman riding a horse in an arena,"['person', 'horse']",0.8574,"['horse', 'person']",0.8574
+koala,['koala'],0.9482,a koloa eating on a branch,['object'],0.0000,['koala'],0.9482

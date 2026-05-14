@@ -1,17 +1,17 @@
 """
 run_official_sam3_video.py
 
-用官方 facebookresearch/sam3 的 video text prompt 对 DAVIS 序列做视频级分割，
-输出 eval_davis_masks.py 兼容的 mask PNG。
+ facebookresearch/sam3  video text prompt  DAVIS
+ eval_davis_masks.py  mask PNG
 
-使用方式:
+:
   python part3/run_official_sam3_video.py \
     --sequences tennis blackswan bmx-trees car-shadow horsejump-low \
     --output_root part3/outputs/official_sam3_video/masks \
     --checkpoint /data3/jli657/project3/weights/sam3/sam3.pt
 
-每个序列的 prompt 由 --prompt_map_yaml 指定（YAML文件），
-或通过 --prompts 参数逐序列传入（格式: sequence_name:prompt_text）。
+ prompt  --prompt_map_yaml YAML
+ --prompts : sequence_name:prompt_text
 """
 
 from __future__ import annotations
@@ -27,10 +27,10 @@ import cv2
 import numpy as np
 from PIL import Image
 
-# 官方 SAM3 repo 路径
+# SAM3 repo
 SAM3_REPO = "/data3/jli657/sam3"
 
-# 预定义各序列的最佳 text prompt（Direction A 核心）
+# text promptDirection A
 DEFAULT_PROMPTS: Dict[str, str] = {
     "tennis": "person",
     "bmx-trees": "person",

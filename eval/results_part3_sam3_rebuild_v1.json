@@ -1,0 +1,54 @@
+{
+  "num_sequences": 5,
+  "num_frames": 422,
+  "macro_iou_j": 0.7866285570246685,
+  "macro_jr": 0.8389285714285715,
+  "macro_f": 0.7672034518754198,
+  "sequences": [
+    {
+      "sequence_name": "tennis",
+      "num_frames": 70,
+      "iou_j_mean": 0.7859512122660748,
+      "jr_at_tau": 0.9571428571428572,
+      "f_mean": 0.8082573782224568,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "tennis"
+    },
+    {
+      "sequence_name": "bmx-trees",
+      "num_frames": 80,
+      "iou_j_mean": 0.46899205553817475,
+      "jr_at_tau": 0.4375,
+      "f_mean": 0.5423852987987287,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "bmx-trees"
+    },
+    {
+      "sequence_name": "bear",
+      "num_frames": 82,
+      "iou_j_mean": 0.9571328780619621,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.9025835488444923,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "bear"
+    },
+    {
+      "sequence_name": "koala",
+      "num_frames": 100,
+      "iou_j_mean": 0.7517954965302056,
+      "jr_at_tau": 0.8,
+      "f_mean": 0.6062792061282815,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "koala"
+    },
+    {
+      "sequence_name": "camel",
+      "num_frames": 90,
+      "iou_j_mean": 0.9692711427269256,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.9765118273831397,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "camel"
+    }
+  ]
+}

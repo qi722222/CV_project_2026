@@ -1,7 +1,7 @@
 """
-eval_keyframe_sdxl_results.py — 评估已有的 keyframe SDXL + ProPainter 输出
+eval_keyframe_sdxl_results.py —  keyframe SDXL + ProPainter
 
-专为 Task 8 的评估步骤设计，对已存在的输出目录计算 PSNR/SSIM。
+ Task 8  PSNR/SSIM
 """
 from __future__ import annotations
 

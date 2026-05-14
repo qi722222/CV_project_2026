@@ -1,0 +1,40 @@
+version: 1
+description: Direction A - SAM3 multi-object final masks evaluation
+
+defaults:
+  gt_root: /home/jli657/shared_data/project3/DAVIS/Annotations/480p
+  pred_root: /data3/jli657/project3/part3/outputs/sam3_multiobj/masks_final
+  iou_threshold_for_jr: 0.5
+  boundary_tolerance_px: 2
+  strict_missing_predictions: false
+
+sequences:
+  - sequence_name: tennis
+    eval_mode: union_all_instances
+    pred_subdir: tennis
+    notes: compound multi-object prompt
+
+  - sequence_name: blackswan
+    eval_mode: union_all_instances
+    pred_subdir: blackswan
+    notes: union of multiple prompts
+
+  - sequence_name: car-shadow
+    eval_mode: union_all_instances
+    pred_subdir: car-shadow
+    notes: union of multiple prompts
+
+  - sequence_name: horsejump-low
+    eval_mode: union_all_instances
+    pred_subdir: horsejump-low
+    notes: union of horse+person prompts
+
+  - sequence_name: koala
+    eval_mode: union_all_instances
+    pred_subdir: koala
+    notes: koala prompt
+
+  - sequence_name: bmx-trees
+    eval_mode: union_all_instances
+    pred_subdir: bmx-trees
+    notes: union of bicycle rider+bicycle prompts

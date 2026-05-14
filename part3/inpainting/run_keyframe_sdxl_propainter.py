@@ -1,19 +1,19 @@
 """
-run_keyframe_sdxl_propainter.py — Task 8: SDXL 关键帧 + ProPainter 传播
+run_keyframe_sdxl_propainter.py — Task 8: SDXL  + ProPainter
 
-正确实现"修关键帧再传播"管线（对应课程文档要求）：
-1. 选择关键帧（均匀间隔）
-2. SDXL-Inpainting 对关键帧进行 mask 区域修复
-3. 关键帧替换 + 对应 mask 设为全黑（0）→ ProPainter 以此为锚点传播
-4. 与纯 ProPainter 对比 PSNR/SSIM
+""
+1.
+2. SDXL-Inpainting  mask
+3.  +  mask 0→ ProPainter
+4.  ProPainter  PSNR/SSIM
 
-关键技术洞察:
-  ProPainter 的 `masked_frames = frames * (1 - masks_dilated)`:
-  - 如果某帧 mask = 0，该帧数据被完整保留作为传播锚点
-  - 无需修改 ProPainter 代码，只需将关键帧 mask 文件替换为全黑图
+:
+  ProPainter  `masked_frames = frames * (1 - masks_dilated)`:
+  -  mask = 0
+  -  ProPainter  mask
 
-运行环境: controlnet_env (有 diffusers/SDXL) + propainter_env (ProPainter)
-脚本在 controlnet_env 中运行，ProPainter 步骤通过 subprocess 调用 propainter_env
+: controlnet_env ( diffusers/SDXL) + propainter_env (ProPainter)
+ controlnet_env ProPainter  subprocess  propainter_env
 """
 from __future__ import annotations
 

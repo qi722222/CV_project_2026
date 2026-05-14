@@ -71,6 +71,16 @@ def parse_args() -> argparse.Namespace:
         default="stage2",
         help="Mainline stage to run for mask generation",
     )
+    p.add_argument(
+        "--reanchor_every_frame",
+        action="store_true",
+        help="For mask generation, run detector re-anchor on every frame.",
+    )
+    p.add_argument(
+        "--disable_anchor_smoothing",
+        action="store_true",
+        help="Disable temporal smoothing between detector anchors.",
+    )
     p.add_argument("--skip_gdino", action="store_true", help="Skip mask generation stage")
     p.add_argument("--skip_propainter", action="store_true", help="Skip ProPainter stage")
     p.add_argument("--neighbor_length", type=int, default=10, help="ProPainter neighbor_length")
@@ -155,19 +165,24 @@ def main() -> None:
                 raise FileNotFoundError(f"video frames dir missing: {video_dir}")
 
             if not args.skip_gdino:
+                gdino_cmd = [
+                    args.gdino_python,
+                    "part3/gdino_vlm/run_gdino_mainline.py",
+                    "--config",
+                    str(cfg_path),
+                    "--sequence",
+                    seq,
+                    "--stage",
+                    args.stage,
+                    "--output",
+                    str(masks_dir),
+                ]
+                if args.reanchor_every_frame:
+                    gdino_cmd.append("--reanchor_every_frame")
+                if args.disable_anchor_smoothing:
+                    gdino_cmd.append("--disable_anchor_smoothing")
                 run_cmd(
-                    [
-                        args.gdino_python,
-                        "part3/gdino_vlm/run_gdino_mainline.py",
-                        "--config",
-                        str(cfg_path),
-                        "--sequence",
-                        seq,
-                        "--stage",
-                        args.stage,
-                        "--output",
-                        str(masks_dir),
-                    ],
+                    gdino_cmd,
                     cwd=project_root,
                     env=env_common,
                 )
@@ -205,6 +220,8 @@ def main() -> None:
     manifest = {
         "mode": args.mode,
         "stage": args.stage,
+        "reanchor_every_frame": bool(args.reanchor_every_frame),
+        "disable_anchor_smoothing": bool(args.disable_anchor_smoothing),
         "output_root": str(output_root),
         "num_sequences": len(results),
         "num_failed": sum(1 for r in results if r.status != "ok"),

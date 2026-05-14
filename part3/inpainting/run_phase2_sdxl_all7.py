@@ -1,21 +1,21 @@
 """
-run_phase2_sdxl_all7.py — SDXL kf5 + ProPainter (GT mask 公平比较协议)
+run_phase2_sdxl_all7.py — SDXL kf5 + ProPainter (GT mask )
 
-mask 来源:
-  - DAVIS 序列: 统一使用 DAVIS annotation / GT mask (公平 inpaint-only 对比)
-  - wild_video-1person: 继续使用现有 shadow/SAM3 mask (demo 分组, 不参与 GT 对比)
+mask :
+  - DAVIS :  DAVIS annotation / GT mask ( inpaint-only )
+  - wild_video-1person:  shadow/SAM3 mask (demo ,  GT )
 
-输出目录:
+:
   - DAVIS: results/<seq>/direction_c/sdxl_kf5_gtmask_propainter/
-  - wild:  results/<seq>/direction_c/sdxl_kf5_propainter/  (保持原有路径)
+  - wild:  results/<seq>/direction_c/sdxl_kf5_propainter/  ()
 
-用法:
-  # GPU0 — DAVIS 序列
+:
+  # GPU0 — DAVIS
   PYTHONUNBUFFERED=1 conda run -n controlnet_env python3 -u \
     part3/run_phase2_sdxl_all7.py --gpu 0 \
     --seqs tennis bmx-trees blackswan koala horsejump-low car-shadow
 
-  # GPU1 (或单独跑) wild demo
+  # GPU1 () wild demo
   PYTHONUNBUFFERED=1 conda run -n controlnet_env python3 -u \
     part3/run_phase2_sdxl_all7.py --gpu 1 --seqs wild_video-1person
 """

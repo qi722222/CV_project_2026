@@ -1,25 +1,25 @@
 """
 run_sam3_multiobject.py
 
-Direction A: Official SAM3 video text prompt — 多目标联合提示版本
+Direction A: Official SAM3 video text prompt —
 
-核心改进（相比 run_official_sam3_video.py）：
-  1. 读取 prompt_scope.yaml，按序列自动选择 video_root 和 prompt 候选集
-  2. 支持多 prompt 联合：对每个候选 prompt 分别调用 add_prompt，
-     合并所有对象的 mask（union），覆盖多目标
-  3. 支持 --search_mode：对每个候选 prompt 评分，输出最优 prompt 和 JM
-  4. 支持 wild_video-1person 等非 DAVIS 序列
-  5. 输出目录结构与 eval_davis_masks.py 兼容
+ run_official_sam3_video.py
+  1.  prompt_scope.yaml video_root  prompt
+  2.  prompt  prompt  add_prompt
+      maskunion
+  3.  --search_mode prompt  prompt  JM
+  4.  wild_video-1person  DAVIS
+  5.  eval_davis_masks.py
 
-使用方式:
-  # 全量运行（按 prompt_scope.yaml 最优 prompt）
+:
+  #  prompt_scope.yaml  prompt
   python part3/run_sam3_multiobject.py \
     --scope_yaml part3/configs/prompt_scope.yaml \
     --sequences tennis koala wild_video-1person bmx-trees blackswan car-shadow horsejump-low \
     --output_root /data3/jli657/project3/part3/outputs/sam3_multiobj/masks \
     --checkpoint /data3/jli657/project3/weights/sam3/sam3.pt
 
-  # Prompt 搜索模式（输出每个候选 prompt 的 JM，基于 GT 评估）
+  # Prompt  prompt  JM GT
   python part3/run_sam3_multiobject.py \
     --scope_yaml part3/configs/prompt_scope.yaml \
     --sequences tennis koala \
@@ -94,7 +94,7 @@ def load_frames(video_dir: Path) -> List[Path]:
 def extract_mask_from_outputs(
     outputs: dict, frame_h: int, frame_w: int, score_threshold: float = 0.3
 ) -> np.ndarray:
-    """合并所有置信度超阈值目标的 binary mask。"""
+    """ binary mask"""
     combined = np.zeros((frame_h, frame_w), dtype=np.uint8)
     if not outputs:
         return combined
@@ -150,8 +150,8 @@ def run_sequence_with_prompts(
     score_threshold: float = 0.3,
 ) -> dict:
     """
-    对单个序列运行 SAM3 视频 text prompt（支持多个 prompt 联合）。
-    每个 prompt 独立 add_prompt，propagate 后合并所有帧 mask（union）。
+     SAM3  text prompt prompt
+     prompt  add_promptpropagate  maskunion
     """
     frames = load_frames(video_dir)
     if not frames:
@@ -163,8 +163,8 @@ def run_sequence_with_prompts(
 
     print(f"[{seq_name}] frames={len(frames)}, prompts={prompt_texts}, anchor={frame_idx}")
 
-    # 对每个 prompt 分别运行，累积 per-frame mask
-    # 最终对所有 prompt 结果取 union
+    # prompt  per-frame mask
+    # prompt  union
     combined_per_frame: Dict[int, np.ndarray] = {}
 
     for prompt_text in prompt_texts:
@@ -228,10 +228,10 @@ def run_sequence_with_prompts(
 
 
 def compute_jm_for_dir(pred_dir: Path, gt_dir: Path) -> float:
-    """快速计算 pred_dir vs gt_dir 的 mean IoU（JM）用于 prompt 搜索。
+    """ pred_dir vs gt_dir  mean IoUJM prompt
 
-    注意：DAVIS GT mask 使用实例 ID（如 38、75）而非 255；需用 > 0 判断前景。
-    预测 mask 使用 255，用 > 127 判断。
+    DAVIS GT mask  ID 3875 255 > 0
+     mask  255 > 127
     """
     ious = []
     gt_files = sorted(gt_dir.glob("*.png"), key=lambda p: p.stem)

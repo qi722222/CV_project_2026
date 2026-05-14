@@ -1,0 +1,7 @@
+sequence,status,n_frames,JM,JR,F,mask_coverage_stage1,mask_coverage_stage3,use_refined,output_dir
+tennis,success,20,0.00013504277027345977,0.0,0.0007748960822892738,0.16027827560901642,0.14398851990699768,True,/data3/jli657/project3/part3/outputs/direction_b/pi3_transplant_v3/tennis
+blackswan,success,20,0.0,0.0,0.00014025226137689915,0.023673929274082184,0.019005265086889267,True,/data3/jli657/project3/part3/outputs/direction_b/pi3_transplant_v3/blackswan
+horsejump-low,success,20,0.0005784816536899654,0.0,0.0006031605936678524,0.08830536156892776,0.09223727881908417,True,/data3/jli657/project3/part3/outputs/direction_b/pi3_transplant_v3/horsejump-low
+koala,success,20,0.05681743692725292,0.0,0.007551342207921069,0.08643493801355362,0.09229637682437897,True,/data3/jli657/project3/part3/outputs/direction_b/pi3_transplant_v3/koala
+bmx-trees,success,20,0.00029618606060892206,0.0,0.000704072513694608,0.20145870745182037,0.20804309844970703,True,/data3/jli657/project3/part3/outputs/direction_b/pi3_transplant_v3/bmx-trees
+car-shadow,success,20,7.416573221885032e-05,0.0,0.0023361119267201382,0.20131425559520721,0.20690646767616272,True,/data3/jli657/project3/part3/outputs/direction_b/pi3_transplant_v3/car-shadow

@@ -1,1 +1,0 @@
-cd /data3/jli657/project3/part3/DiffuEraser_workspace/DiffuEraser && conda run -n diffueraser_env python3 run_diffueraser.py --input_video .../diffueraser_gtmask_v8/input_video.mp4 --input_mask .../diffueraser_gtmask_v8/input_mask.mp4 --video_length 70 --save_path .../diffueraser_gtmask_v8 --mask_dilation_iter 0 --ref_stride 5

@@ -1,13 +1,13 @@
 """
 run_part3_refine.py
 -------------------
-Part3 skeleton: 关键帧选择 + 最小可运行精修流程。
+Part3 skeleton:  +
 
-当前默认模式:
-- copy_fallback: 不依赖diffusers，选出的关键帧直接拷贝到refined目录（确保流程可跑通）
+:
+- copy_fallback: diffusersrefined
 
-预留模式:
-- sd_controlnet: 后续接入 SD Inpainting + ControlNet
+:
+- sd_controlnet:  SD Inpainting + ControlNet
 """
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--config",
         default="part3/configs/default_part3.yaml",
-        help="YAML配置路径",
+        help="YAML",
     )
     return parser.parse_args()
 
 
 def load_yaml(path: Path) -> Dict:
     if not path.exists():
-        raise FileNotFoundError(f"找不到配置文件: {path}")
+        raise FileNotFoundError(f": {path}")
     with path.open("r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
     if not isinstance(data, dict):
-        raise ValueError("配置文件顶层必须为dict")
+        raise ValueError("dict")
     return data
 
 
@@ -63,7 +63,7 @@ def extract_video_to_frames(video_path: Path, out_dir: Path) -> List[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     cap = cv2.VideoCapture(str(video_path))
     if not cap.isOpened():
-        raise RuntimeError(f"无法打开视频: {video_path}")
+        raise RuntimeError(f": {video_path}")
     idx = 0
     while True:
         ret, frame = cap.read()
@@ -81,7 +81,7 @@ def materialize_input_frames(input_dir: Path, output_dir: Path) -> Tuple[List[Pa
     if frame_files:
         return frame_files, input_dir
 
-    # 若目录下无图像，尝试使用inpaint_out.mp4
+    # inpaint_out.mp4
     cand_videos = sorted(input_dir.glob("*.mp4"))
     preferred = [p for p in cand_videos if p.name == "inpaint_out.mp4"]
     video = preferred[0] if preferred else (cand_videos[0] if cand_videos else None)
@@ -146,7 +146,6 @@ def select_keyframes(
             candidates.append(KeyframeStats(frame_name=frame_path.name, frame_index=i, mask_area_ratio=ratio))
 
     if not candidates:
-        # 回退：取头中尾（若存在）
         fallback_ids = sorted(set([0, len(frame_files) // 2, max(0, len(frame_files) - 1)]))
         fallback = []
         for i in fallback_ids[:k]:
@@ -162,7 +161,6 @@ def select_keyframes(
             )
         return fallback
 
-    # 候选按时间排序后均匀抽样，避免全落在局部片段
     candidates.sort(key=lambda x: x.frame_index)
     return pick_uniform_indices(candidates, k)
 
@@ -210,7 +208,7 @@ def compute_infer_size(width: int, height: int, max_side: int) -> Tuple[int, int
         scale = float(max_side) / float(max(width, height))
         width = int(round(width * scale))
         height = int(round(height * scale))
-    # SD 管线通常要求是 8 的倍数
+    # SD  8
     width = max(64, (width // 8) * 8)
     height = max(64, (height // 8) * 8)
     return width, height
@@ -219,7 +217,7 @@ def compute_infer_size(width: int, height: int, max_side: int) -> Tuple[int, int
 def build_control_image(image_rgb: np.ndarray, controlnet_type: str, canny_low: int, canny_high: int) -> np.ndarray:
     ctype = controlnet_type.lower().strip()
     if ctype != "canny":
-        raise ValueError(f"当前仅实现 canny 控制图，收到: {controlnet_type}")
+        raise ValueError(f" canny : {controlnet_type}")
     edges = cv2.Canny(image_rgb, canny_low, canny_high)
     return cv2.cvtColor(edges, cv2.COLOR_GRAY2RGB)
 
@@ -279,7 +277,7 @@ def run_sd_controlnet_refine(
         from diffusers import ControlNetModel, StableDiffusionControlNetInpaintPipeline, UniPCMultistepScheduler
     except Exception as exc:
         raise RuntimeError(
-            "sd_controlnet 模式需要安装 diffusers/torch 依赖，请使用 controlnet_env。"
+            "sd_controlnet  diffusers/torch  controlnet_env"
         ) from exc
 
     sd_model_id = str(refine_cfg.get("sd_model_id", "runwayml/stable-diffusion-inpainting"))
@@ -389,16 +387,16 @@ def main() -> None:
     mode = refine.get("mode", "copy_fallback")
 
     if not input_frames_dir.exists():
-        raise FileNotFoundError(f"输入帧目录不存在: {input_frames_dir}")
+        raise FileNotFoundError(f": {input_frames_dir}")
     if not masks_dir.exists():
-        raise FileNotFoundError(f"mask目录不存在: {masks_dir}")
+        raise FileNotFoundError(f"mask: {masks_dir}")
 
     random.seed(int(runtime.get("seed", 42)))
     np.random.seed(int(runtime.get("seed", 42)))
 
     frame_files, frame_root = materialize_input_frames(input_frames_dir, output_dir)
     if not frame_files:
-        raise RuntimeError(f"未在目录中找到图像: {input_frames_dir}")
+        raise RuntimeError(f": {input_frames_dir}")
 
     keyframes = select_keyframes(frame_files, masks_dir, policy)
     out_refined = output_dir / "refined_keyframes"
@@ -429,7 +427,7 @@ def main() -> None:
             export_refined_keyframe_video(out_refined, output_dir / "refined_keyframes.mp4")
         actual_backend = "sd_controlnet_diffusers"
     else:
-        raise ValueError(f"未知 refine.mode: {mode}")
+        raise ValueError(f" refine.mode: {mode}")
 
     manifest = {
         "sequence_name": sequence_name,

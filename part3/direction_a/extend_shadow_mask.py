@@ -1,15 +1,15 @@
 """
-extend_shadow_mask.py — 为 wild_video-1person 的 person mask 添加地面阴影扩展
+extend_shadow_mask.py —  wild_video-1person  person mask
 
-策略：
-  1. 加载每帧 SAM3 生成的 person mask
-  2. 找到人物脚底（mask 最低非零行）及宽度
-  3. 在脚底以下方向用垂直拉伸椭圆核做形态学膨胀，模拟地面投影阴影
-  4. union(person_mask, shadow_region) 作为最终 mask
-  5. 可视化：生成 debug 对比图（原始 mask vs 增强 mask）
-  6. 输出到 --output_dir
 
-用法:
+  1.  SAM3  person mask
+  2. mask
+  3.
+  4. union(person_mask, shadow_region)  mask
+  5.  debug  mask vs  mask
+  6.  --output_dir
+
+:
   conda run -n propainter_env python3 part3/extend_shadow_mask.py \
     --input_dir  /data3/jli657/project3/part3/outputs/sam3_multiobj/masks_final/wild_video-1person \
     --output_dir /data3/jli657/project3/part3/outputs/sam3_multiobj/masks_shadow/wild_video-1person \

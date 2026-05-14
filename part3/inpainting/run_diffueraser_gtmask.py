@@ -1,29 +1,29 @@
 """
-run_diffueraser_gtmask.py — DiffuEraser inpaint_only 运行脚本（DAVIS GT mask）
+run_diffueraser_gtmask.py — DiffuEraser inpaint_only DAVIS GT mask
 
-工作流程：
-  1. 读取 prepare_diffueraser_inputs.py 生成的 input_video.mp4 + input_mask.mp4
-  2. 调用 DiffuEraser 推理，输出 inpaint_out.mp4
-  3. 写出 run_manifest.json（供 build_part3_deliverables.py 自动注册）
-  4. 触发 PSNR/SSIM 评估
 
-实验命名规范：
-  - 首版：diffueraser_gtmask_v1
-  - 调参版：diffueraser_gtmask_v2 / v3（必须新建目录，不覆盖旧版）
+  1.  prepare_diffueraser_inputs.py  input_video.mp4 + input_mask.mp4
+  2.  DiffuEraser  inpaint_out.mp4
+  3.  run_manifest.json build_part3_deliverables.py
+  4.  PSNR/SSIM
 
-用法：
+
+  - diffueraser_gtmask_v1
+  - diffueraser_gtmask_v2 / v3
+
+
   conda run -n diffueraser_env python3 part3/inpainting/run_diffueraser_gtmask.py \\
       --seq tennis --version v1
 
-  # Smoke test（仅检查能否运行，不要求完美结果）
+  # Smoke test
   conda run -n diffueraser_env python3 part3/inpainting/run_diffueraser_gtmask.py \\
       --seq tennis --version v1 --smoke_test
 
-DiffuEraser 关键参数（通过 --de_args 传递）：
-  --guidance_scale    (default: 2.5)  弱条件强度，值越低越少保留原始内容
-  --n_timesteps       (default: 2)    DDIM 步数，步数少则快
-  --mask_dilation     (default: 8)    内部 mask 膨胀（已在 prepare 中做了外部膨胀）
-  --fps               (default: 2)    DiffuEraser 处理帧率（建议 2-4，太高显存不足）
+DiffuEraser  --de_args
+  --guidance_scale    (default: 2.5)
+  --n_timesteps       (default: 2)    DDIM
+  --mask_dilation     (default: 8)     mask  prepare
+  --fps               (default: 2)    DiffuEraser  2-4
 """
 from __future__ import annotations
 
@@ -64,12 +64,12 @@ def write_manifest(out_dir: Path, seq: str, version: str,
         "mask_protocol": "davis_gt",
         "baseline": BASELINE,
         "stage_gate": (
-            "工程稳定、视觉不明显劣于 pure_propainter_gtmask、"
-            "PSNR_proxy 或 SSIM 至少一项接近或优于基线"
+            " pure_propainter_gtmask"
+            "PSNR_proxy  SSIM "
         ),
         "next_decision": (
-            "过门槛 → 扩到 bmx-trees 和 car-shadow；"
-            "未过 → 调参形成 v2（调 guidance_scale / n_timesteps）"
+            " →  bmx-trees  car-shadow"
+            " →  v2 guidance_scale / n_timesteps"
         ),
         "failure_reason": "" if returncode == 0 else f"inference returned code {returncode}",
         "script_path": str(PART3_ROOT / "inpainting" / "run_diffueraser_gtmask.py"),
@@ -83,16 +83,16 @@ def write_manifest(out_dir: Path, seq: str, version: str,
         "mask_frames_dir": str(out_dir / "mask_frames"),
         "log_path": str(out_dir / "run.log"),
         "plain_explanation": (
-            "以 DAVIS GT mask 固定 mask 输入，比较 DiffuEraser（视频 diffusion inpainting）"
-            "与 pure ProPainter 的修复质量。首轮验证 DiffuEraser 的时间一致性和生成质量。"
+            " DAVIS GT mask  mask  DiffuEraser diffusion inpainting"
+            " pure ProPainter  DiffuEraser "
         ),
         "what_to_check": (
-            "1. masked_in.mp4：GT mask 覆盖是否正确（应完整覆盖运动员/目标）\n"
-            "2. inpaint_out.mp4：修复区域是否自然、有无闪烁、背景 hallucination、"
-            "非 mask 区域污染\n"
-            "3. PSNR_proxy / SSIM：与 pure_propainter_gtmask 对比"
+            "1. masked_in.mp4GT mask /\n"
+            "2. inpaint_out.mp4 hallucination"
+            " mask \n"
+            "3. PSNR_proxy / SSIM pure_propainter_gtmask "
         ),
-        "current_takeaway": "待推理完成后更新",
+        "current_takeaway": "",
         "elapsed_sec": round(elapsed, 1),
     }
     manifest_path = out_dir / "run_manifest.json"
@@ -105,6 +105,8 @@ def main() -> None:
     parser.add_argument("--seq", default="tennis")
     parser.add_argument("--version", default="v1",
                         help="Version tag; new versions must use new directory")
+    parser.add_argument("--mask_dilation_iter", type=int, default=0,
+                        help="DiffuEraser internal mask dilation iterations (0=rely on external dilate_px)")
     parser.add_argument("--smoke_test", action="store_true",
                         help="Only verify inputs exist and DiffuEraser can import; skip full inference")
     parser.add_argument("--guidance_scale", type=float, default=2.5)
@@ -168,7 +170,15 @@ def main() -> None:
     inpaint_out    = out_dir / "inpaint_out.mp4"  # final standardized name
 
     weights_root = DIFFUERASER_DIR / "weights"
-    video_length = args.max_frames if args.max_frames > 0 else 70  # tennis has 70 frames
+    # Auto-detect frame count from mask_frames dir
+    mask_frames_dir = out_dir / "mask_frames"
+    if args.max_frames > 0:
+        video_length = args.max_frames
+    elif mask_frames_dir.exists():
+        n_mask = len([p for p in mask_frames_dir.iterdir() if p.suffix == ".png"])
+        video_length = n_mask if n_mask > 0 else 70
+    else:
+        video_length = 70
 
     cmd = [
         "python3", str(infer_script),
@@ -180,7 +190,7 @@ def main() -> None:
         "--vae_path",          str(weights_root / "sd-vae-ft-mse"),
         "--diffueraser_path",  str(weights_root / "diffuEraser"),
         "--propainter_model_dir", str(weights_root / "propainter"),
-        "--mask_dilation_iter", "0",  # already dilated externally
+        "--mask_dilation_iter", str(args.mask_dilation_iter),  # configurable; default=0 (already dilated externally)
     ]
 
     t0 = time.time()

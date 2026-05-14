@@ -1,0 +1,60 @@
+sequence,method,display_name,PSNR_proxy,PSNR_synthetic,SSIM,n_frames
+tennis,part2_baseline,Part2 Baseline (YOLO+SAM2+PP),32.5143,8.5409,0.8998,70
+tennis,part3_dir_a,Part3 Dir-A (SAM3+PP),33.5709,8.5654,0.9160,70
+tennis,part3_pure_pp_gtmask,Part3 Dir-C Pure PP [GT mask],34.8786,8.4165,0.9217,70
+tennis,part3_pure_pp,Part3 Dir-C Pure PP [SAM3 mask],34.8786,8.4165,0.9217,70
+tennis,part3_sdxl_kf5_gtmask,Part3 Dir-C SDXL kf5+PP [GT mask],38.5372,33.5402,0.9645,70
+tennis,part3_sdxl_kf5,Part3 Dir-C SDXL kf5+PP [SAM3 mask],34.2062,9.1275,0.9182,70
+tennis,part3_lama_gtmask,Part3 Dir-C LaMa kf5+PP [GT mask],38.6489,33.5761,0.9642,70
+tennis,part3_lama,Part3 Dir-C LaMa kf5+PP [SAM3 mask],34.6778,8.9157,0.9152,70
+tennis,part3_diffueraser_gtmask_v1,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v1],31.3151,8.4231,0.8841,70
+tennis,part3_diffueraser_gtmask_v2,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v2],31.2164,8.4168,0.8810,70
+tennis,part3_diffueraser_gtmask_v3,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v3],30.6227,8.4960,0.8784,70
+tennis,part3_diffueraser_gtmask_v4,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v4],36.2772,32.8821,0.9487,70
+tennis,part3_diffueraser_gtmask_v5,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v5],31.3163,8.4181,0.8841,70
+tennis,part3_diffueraser_gtmask_v6,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v6],31.3162,8.4343,0.8840,70
+tennis,part3_diffueraser_gtmask_v7,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v7],32.4621,13.0979,0.8987,70
+tennis,part3_diffueraser_gtmask_v8,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v8],31.3110,8.4139,0.8841,70
+tennis,part3_diffueraser_gtmask_v9,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v9],34.0217,8.2300,0.9046,70
+bmx-trees,part2_baseline,Part2 Baseline (YOLO+SAM2+PP),32.3113,10.0456,0.9229,80
+bmx-trees,part3_dir_a,Part3 Dir-A (SAM3+PP),35.1406,9.8051,0.9429,80
+bmx-trees,part3_pure_pp_gtmask,Part3 Dir-C Pure PP [GT mask],35.2240,9.8035,0.9431,80
+bmx-trees,part3_pure_pp,Part3 Dir-C Pure PP [SAM3 mask],35.2240,9.8035,0.9431,80
+bmx-trees,part3_sdxl_kf5_gtmask,Part3 Dir-C SDXL kf5+PP [GT mask],37.6135,33.4868,0.9666,80
+bmx-trees,part3_sdxl_kf5,Part3 Dir-C SDXL kf5+PP [SAM3 mask],34.1940,10.3363,0.9338,80
+bmx-trees,part3_lama_gtmask,Part3 Dir-C LaMa kf5+PP [GT mask],37.6135,33.4868,0.9666,80
+bmx-trees,part3_lama,Part3 Dir-C LaMa kf5+PP [SAM3 mask],34.5509,10.1811,0.9335,80
+bmx-trees,part3_diffueraser_gtmask_v1,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v1],30.1208,9.8046,0.8895,80
+bmx-trees,part3_diffueraser_gtmask_v4,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v4],35.3884,33.5199,0.9515,80
+bmx-trees,part3_diffueraser_gtmask_v8,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v8],31.6170,13.5663,0.9050,80
+bmx-trees,part3_diffueraser_gtmask_v9,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v9],35.3482,13.4227,0.9362,80
+blackswan,part3_dir_a,Part3 Dir-A (SAM3+PP),33.4755,13.0508,0.8844,50
+blackswan,part3_pure_pp_gtmask,Part3 Dir-C Pure PP [GT mask],33.8348,13.1101,0.8844,50
+blackswan,part3_sdxl_kf5_gtmask,Part3 Dir-C SDXL kf5+PP [GT mask],38.1927,38.0624,0.9730,50
+blackswan,part3_sdxl_kf5,Part3 Dir-C SDXL kf5+PP [SAM3 mask],33.3692,13.7560,0.8807,50
+blackswan,part3_lama_gtmask,Part3 Dir-C LaMa kf5+PP [GT mask],38.1927,38.0624,0.9730,50
+blackswan,part3_lama,Part3 Dir-C LaMa kf5+PP [SAM3 mask],33.3571,14.2666,0.8798,50
+blackswan,part3_diffueraser_gtmask_v1,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v1],30.0867,13.0726,0.8338,50
+blackswan,part3_diffueraser_gtmask_v4,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v4],35.6543,35.6936,0.9581,50
+blackswan,part3_diffueraser_gtmask_v8,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v8],31.8386,16.7471,0.8632,50
+blackswan,part3_diffueraser_gtmask_v9,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v9],35.6328,16.6035,0.8909,50
+horsejump-low,part3_dir_a,Part3 Dir-A (SAM3+PP),33.5237,10.5190,0.9103,60
+horsejump-low,part3_pure_pp_gtmask,Part3 Dir-C Pure PP [GT mask],33.4265,10.1892,0.9078,60
+horsejump-low,part3_sdxl_kf5_gtmask,Part3 Dir-C SDXL kf5+PP [GT mask],37.0250,34.6505,0.9720,60
+horsejump-low,part3_sdxl_kf5,Part3 Dir-C SDXL kf5+PP [SAM3 mask],32.9634,11.7188,0.8914,60
+horsejump-low,part3_lama_gtmask,Part3 Dir-C LaMa kf5+PP [GT mask],37.0250,34.6505,0.9720,60
+horsejump-low,part3_lama,Part3 Dir-C LaMa kf5+PP [SAM3 mask],33.1914,10.9321,0.8899,60
+horsejump-low,part3_diffueraser_gtmask_v1,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v1],28.5955,10.0720,0.8407,60
+horsejump-low,part3_diffueraser_gtmask_v4,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v4],35.0372,34.9696,0.9573,60
+horsejump-low,part3_diffueraser_gtmask_v8,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v8],30.9983,12.1852,0.8745,60
+horsejump-low,part3_diffueraser_gtmask_v9,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v9],34.9950,12.1198,0.9112,60
+car-shadow,part3_dir_a,Part3 Dir-A (SAM3+PP),31.7644,9.3591,0.9121,40
+car-shadow,part3_pure_pp_gtmask,Part3 Dir-C Pure PP [GT mask],37.3944,9.3745,0.9192,40
+car-shadow,part3_sdxl_kf5_gtmask,Part3 Dir-C SDXL kf5+PP [GT mask],39.4890,35.0581,0.9758,40
+car-shadow,part3_sdxl_kf5,Part3 Dir-C SDXL kf5+PP [SAM3 mask],33.0164,11.2822,0.9121,40
+car-shadow,part3_lama_gtmask,Part3 Dir-C LaMa kf5+PP [GT mask],39.4890,35.0581,0.9758,40
+car-shadow,part3_lama,Part3 Dir-C LaMa kf5+PP [SAM3 mask],31.9927,10.0659,0.9036,40
+car-shadow,part3_diffueraser_gtmask_v1,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v1],30.4127,9.2334,0.8778,40
+car-shadow,part3_diffueraser_gtmask_v4,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v4],36.7663,34.8842,0.9562,40
+car-shadow,part3_diffueraser_gtmask_v8,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v8],32.9385,10.9321,0.8883,40
+car-shadow,part3_diffueraser_gtmask_v9,Part3 Dir-C DiffuEraser [GT mask / diffueraser_gtmask_v9],36.7750,10.9309,0.9066,40

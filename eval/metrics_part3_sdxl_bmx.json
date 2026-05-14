@@ -1,0 +1,72 @@
+{
+  "num_frames_eval": 80,
+  "mask_quality": {
+    "JM": 0.46899205553817475,
+    "JR": 0.4375
+  },
+  "video_quality_proxy": {
+    "PSNR": 32.165882945254914,
+    "SSIM": 0.9960190996487258
+  },
+  "video_quality_synthetic": {
+    "PSNR": 29.474621451841443,
+    "SSIM": 0.9897532225378809
+  },
+  "gate_policy": {
+    "method_name": "unknown_method",
+    "features": {
+      "mask_area_mean": 0.021350232972287275,
+      "mask_area_std": 0.012744188809163655,
+      "mask_area_cv": 0.5969109951027552,
+      "boundary_complexity_mean": 0.33519366586673555,
+      "motion_mean": 80.34177215189874,
+      "motion_p95": 93.0,
+      "keyframe_delta_mean": 41.305595356225965,
+      "keyframe_delta_std": 14.170114819662135
+    },
+    "policy_thresholds": {
+      "motion_p95": 18.0,
+      "boundary_complexity_mean": 0.14,
+      "mask_area_cv": 0.65,
+      "keyframe_delta_std": 6.0
+    },
+    "policy_threshold_source": "default",
+    "decision": {
+      "recommended_method": "pure_propainter",
+      "risk_reasons": [
+        "high_motion_p95",
+        "complex_mask_boundary",
+        "unstable_keyframe_delta"
+      ],
+      "is_high_risk": true
+    },
+    "decision_compare": {
+      "default_thresholds": {
+        "motion_p95": 18.0,
+        "boundary_complexity_mean": 0.14,
+        "mask_area_cv": 0.65,
+        "keyframe_delta_std": 6.0
+      },
+      "default_decision": {
+        "recommended_method": "pure_propainter",
+        "risk_reasons": [
+          "high_motion_p95",
+          "complex_mask_boundary",
+          "unstable_keyframe_delta"
+        ],
+        "is_high_risk": true
+      },
+      "calibrated_thresholds": {
+        "motion_p95": 97.65,
+        "boundary_complexity_mean": 0.3620091591360744,
+        "mask_area_cv": 0.6566020946130309,
+        "keyframe_delta_std": 15.303724005235107
+      },
+      "calibrated_decision": {
+        "recommended_method": "hybrid_temporal_consistency",
+        "risk_reasons": [],
+        "is_high_risk": false
+      }
+    }
+  }
+}

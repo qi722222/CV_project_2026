@@ -1,0 +1,262 @@
+{
+  "tennis": {
+    "model": "Salesforce/blip-image-captioning-base",
+    "final_prompts": [
+      "person",
+      "tennis racket",
+      "car",
+      "bird"
+    ],
+    "frame_results": [
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/tennis/00000.jpg",
+        "caption": "a man is playing tennis on a clay court",
+        "prompts": [
+          "person",
+          "tennis racket",
+          "car",
+          "bird"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/tennis/00035.jpg",
+        "caption": "a man is playing tennis on a clay court",
+        "prompts": [
+          "person",
+          "tennis racket",
+          "car",
+          "bird"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/tennis/00069.jpg",
+        "caption": "a man is playing tennis on a clay court",
+        "prompts": [
+          "person",
+          "tennis racket",
+          "car",
+          "bird"
+        ]
+      }
+    ]
+  },
+  "blackswan": {
+    "model": "Salesforce/blip-image-captioning-base",
+    "final_prompts": [
+      "person",
+      "car",
+      "horse",
+      "bird"
+    ],
+    "frame_results": [
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/blackswan/00000.jpg",
+        "caption": "a black swan swimming in a pond",
+        "prompts": [
+          "person",
+          "car",
+          "horse",
+          "bird"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/blackswan/00025.jpg",
+        "caption": "a black swan swimming in a pond",
+        "prompts": [
+          "person",
+          "car",
+          "horse",
+          "bird"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/blackswan/00049.jpg",
+        "caption": "a black swan swimming in a pond",
+        "prompts": [
+          "person",
+          "car",
+          "horse",
+          "bird"
+        ]
+      }
+    ]
+  },
+  "horsejump-low": {
+    "model": "Salesforce/blip-image-captioning-base",
+    "final_prompts": [
+      "person",
+      "horse",
+      "bird"
+    ],
+    "frame_results": [
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/horsejump-low/00000.jpg",
+        "caption": "a woman riding a horse in an arena",
+        "prompts": [
+          "person",
+          "horse",
+          "bird"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/horsejump-low/00030.jpg",
+        "caption": "a person riding a horse over an obstacle",
+        "prompts": [
+          "person",
+          "horse",
+          "bird"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/horsejump-low/00059.jpg",
+        "caption": "a person riding a horse in an arena",
+        "prompts": [
+          "person",
+          "horse",
+          "bird"
+        ]
+      }
+    ]
+  },
+  "koala": {
+    "model": "Salesforce/blip-image-captioning-base",
+    "final_prompts": [
+      "koala"
+    ],
+    "frame_results": [
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/koala/00000.jpg",
+        "caption": "a koloa eating on a branch",
+        "prompts": [
+          "koala"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/koala/00050.jpg",
+        "caption": "a koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa ko",
+        "prompts": [
+          "koala"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/koala/00099.jpg",
+        "caption": "a koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa koalaa ko",
+        "prompts": [
+          "koala"
+        ]
+      }
+    ]
+  },
+  "bmx-trees": {
+    "model": "Salesforce/blip-image-captioning-base",
+    "final_prompts": [
+      "person",
+      "bicycle",
+      "bird",
+      "car",
+      "koala"
+    ],
+    "frame_results": [
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/bmx-trees/00000.jpg",
+        "caption": "a man riding a bike down a road",
+        "prompts": [
+          "person",
+          "bicycle",
+          "car",
+          "bird",
+          "koala"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/bmx-trees/00040.jpg",
+        "caption": "a man riding a bike down a street",
+        "prompts": [
+          "person",
+          "bicycle",
+          "car",
+          "bird"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/bmx-trees/00079.jpg",
+        "caption": "a person riding a bike down a path",
+        "prompts": [
+          "person",
+          "bicycle",
+          "bird"
+        ]
+      }
+    ]
+  },
+  "car-shadow": {
+    "model": "Salesforce/blip-image-captioning-base",
+    "final_prompts": [
+      "person",
+      "car",
+      "bear",
+      "bird"
+    ],
+    "frame_results": [
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/car-shadow/00000.jpg",
+        "caption": "a small car is parked on the street",
+        "prompts": [
+          "person",
+          "car",
+          "bear"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/car-shadow/00020.jpg",
+        "caption": "a small car is driving down the street",
+        "prompts": [
+          "person",
+          "car",
+          "bear"
+        ]
+      },
+      {
+        "frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/car-shadow/00039.jpg",
+        "caption": "a white van is driving down the street",
+        "prompts": [
+          "person",
+          "car",
+          "bird"
+        ]
+      }
+    ]
+  },
+  "wild_video-1person": {
+    "model": "Salesforce/blip-image-captioning-base",
+    "final_prompts": [
+      "person",
+      "horse"
+    ],
+    "frame_results": [
+      {
+        "frame": "/data3/jli657/project3/wild_frames/wild_video-1person/00000.jpg",
+        "caption": "a woman standing in front of a building",
+        "prompts": [
+          "person"
+        ]
+      },
+      {
+        "frame": "/data3/jli657/project3/wild_frames/wild_video-1person/00142.jpg",
+        "caption": "a woman walking down a sidewalk next to a pond",
+        "prompts": [
+          "person",
+          "horse"
+        ]
+      },
+      {
+        "frame": "/data3/jli657/project3/wild_frames/wild_video-1person/00283.jpg",
+        "caption": "a woman walking down a sidewalk next to a pond",
+        "prompts": [
+          "person",
+          "horse"
+        ]
+      }
+    ]
+  }
+}

@@ -1,19 +1,19 @@
 """
-prepare_diffueraser_inputs.py — DiffuEraser 输入视频和 mask 视频准备
+prepare_diffueraser_inputs.py — DiffuEraser  mask
 
-从 DAVIS frames + DAVIS GT masks 合成两个视频：
-  - input_video.mp4  ← 原始帧序列
-  - input_mask.mp4   ← 二值 mask 序列（白色=待修复区域，黑色=保留区域）
+ DAVIS frames + DAVIS GT masks
+  - input_video.mp4  ←
+  - input_mask.mp4   ←  mask ==
 
-同时生成：
-  - masked_in.mp4    ← 用于视觉核查 mask 覆盖是否正确
 
-DiffuEraser 要求：
-  - input_video 和 input_mask 帧数一致、分辨率一致
-  - mask 为白色区域（255）= inpainting 区域，黑色（0）= 保留区域
-  - 建议分辨率 ≤ 512x288 或保持 480p，根据显存调整
+  - masked_in.mp4    ←  mask
 
-用法：
+DiffuEraser
+  - input_video  input_mask
+  - mask 255= inpainting 0=
+  -  ≤ 512x288  480p
+
+
   conda run -n diffueraser_env python3 part3/inpainting/prepare_diffueraser_inputs.py \\
       --seq tennis [--max_frames 70] [--dilate_px 5] [--fps 24]
 """

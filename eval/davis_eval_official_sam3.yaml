@@ -1,0 +1,32 @@
+version: 1
+description: >
+   SAM3 video text prompt  DAVIS5
+  Direction A build_sam3_video_predictor + text prompt + video propagation
+
+defaults:
+  gt_root: /home/jli657/shared_data/project3/DAVIS/Annotations/480p
+  pred_root: /home/jli657/my_storage2_1T/project3/part3/outputs/official_sam3_video/masks
+  iou_threshold_for_jr: 0.5
+  boundary_tolerance_px: 2
+  strict_missing_predictions: false
+
+sequences:
+  - sequence_name: bmx-trees
+    eval_mode: union_all_instances
+    pred_subdir: bmx-trees
+
+  - sequence_name: tennis
+    eval_mode: union_all_instances
+    pred_subdir: tennis
+
+  - sequence_name: blackswan
+    eval_mode: union_all_instances
+    pred_subdir: blackswan
+
+  - sequence_name: car-shadow
+    eval_mode: union_all_instances
+    pred_subdir: car-shadow
+
+  - sequence_name: horsejump-low
+    eval_mode: union_all_instances
+    pred_subdir: horsejump-low

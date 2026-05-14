@@ -1,24 +1,23 @@
 sequence_name: tennis
 
 paths:
-  # ProPainter输出帧目录（或任意待精修帧目录）
+  # ProPainter
   input_frames_dir: /home/jli657/my_storage2_1T/project3/part2/outputs/tennis_v3/tennis
-  # 对齐的二值mask目录
+  # mask
   masks_dir: /home/jli657/my_storage2_1T/project3/part2/masks_cache/tennis_v3
-  # Part3输出目录
+  # Part3
   output_dir: /home/jli657/my_storage2_1T/project3/part3/outputs/tennis
 
 keyframe_policy:
   mask_area_ratio_threshold: 0.15
   max_keyframes_per_sequence: 3
   global_max_keyframes: 5
-  # 可选，若为空则根据候选自动均匀采样
   force_frame_indices: []
 
 refine:
-  # skeleton阶段默认使用copy_fallback，保证可运行
+  # skeletoncopy_fallback
   mode: copy_fallback
-  # 当 mode=sd_controlnet 时，请使用 controlnet_env（见 part3/requirements_controlnet.txt）
+  # mode=sd_controlnet  controlnet_env part3/requirements_controlnet.txt
   prompt: clean background, remove target object naturally
   negative_prompt: artifacts, blurry, distorted geometry
   use_controlnet: true

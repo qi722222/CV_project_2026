@@ -4,10 +4,10 @@ run_gdino_mainline.py
 Main line (Stage1 / Stage2):
   VLM prompt -> (GroundingDINO or fallback detector) boxes -> SAM2 propagation -> mask outputs
 
-设计目标:
+:
 - Stage1: first-frame box
 - Stage2: sparse re-anchor every K frames with simple IoU smoothing
-- 若GDINO依赖不可用，自动fallback到YOLO并记录metadata，保证链路可运行
+- GDINOfallbackYOLOmetadata
 """
 
 from __future__ import annotations
@@ -41,6 +41,9 @@ class RunMeta:
     normalized_prompt_tokens: List[str]
     prompt_quality_guard_triggered: bool
     prompt_fallback_reason: str
+    reanchor_every_frame: bool = False
+    disable_anchor_smoothing: bool = False
+    effective_anchor_stride: int = 0
 
 
 @dataclass
@@ -58,16 +61,26 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", default="part3/configs/gdino_vlm_mainline.yaml")
     parser.add_argument("--sequence", required=True, help="sequence_name in config/policy")
     parser.add_argument("--stage", choices=["stage1", "stage2"], default="stage1")
-    parser.add_argument("--output", required=True, help="mask输出目录")
+    parser.add_argument("--output", required=True, help="mask")
+    parser.add_argument(
+        "--reanchor_every_frame",
+        action="store_true",
+        help=" detector  box sparse re-anchor",
+    )
+    parser.add_argument(
+        "--disable_anchor_smoothing",
+        action="store_true",
+        help=" anchor box  detector ",
+    )
     parser.add_argument(
         "--no-export-mp4",
         action="store_true",
-        help="跳过导出 mask.mp4 / overlay.mp4（默认在跑完后写入 part3/gdino_vlm/outputs/<seq>_<stage>/）",
+        help=" mask.mp4 / overlay.mp4 part3/gdino_vlm/outputs/<seq>_<stage>/",
     )
     parser.add_argument(
         "--inpaint-video",
         default="",
-        help="可选：ProPainter inpaint_out.mp4，用于生成 side_by_side.mp4",
+        help="ProPainter inpaint_out.mp4 side_by_side.mp4",
     )
     return parser.parse_args()
 
@@ -76,7 +89,7 @@ def load_yaml(path: Path) -> Dict:
     with path.open("r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
     if not isinstance(data, dict):
-        raise ValueError(f"配置格式错误: {path}")
+        raise ValueError(f": {path}")
     return data
 
 
@@ -89,7 +102,6 @@ def is_over_generic_prompt(prompt: str) -> bool:
     t = prompt.strip().lower()
     if not t:
         return True
-    # 过泛词：会让开放词汇检测退化为“大类全检”，难以区分具体移除目标
     return t in {"object", "objects", "thing", "things", "person"}
 
 
@@ -162,12 +174,12 @@ def infer_prompt(cfg: Dict, seq_cfg: Dict, first_frame: Path) -> PromptDecision:
             quality_guard_triggered=False,
             fallback_reason="",
         )
-    # 简易映射，防止VLM链路缺失时无prompt可用
+    # VLMprompt
     text = user_intent.lower()
     if "bicycle" in text or "bike" in text:
         return PromptDecision("person . bicycle", "rule_based", "", [], False, "")
     if "tennis" in text:
-        return PromptDecision("person . tennis racket", "rule_based", "", [], False, "")
+        return PromptDecision("person . tennis racket . tennis ball", "rule_based", "", [], False, "")
     if "car" in text:
         return PromptDecision("car", "rule_based", "", [], False, "")
     if "horse" in text:
@@ -189,20 +201,16 @@ def infer_prompt_from_real_vlm(real_vlm_cfg: Dict, image_path: Path, user_intent
             caption = str(out[0].get("generated_text", "")).lower().strip()
         text = f"{user_intent.lower()} {caption}".strip()
         tokens = []
-        # 人物类
         if any(w in text for w in ("person", "man", "woman", "pedestrian", "athlete", "player", "rider")):
             tokens.append("person")
-        # 运动器材
         if any(w in text for w in ("bicycle", "bike", "cycle")):
             tokens.append("bicycle")
         if any(w in text for w in ("tennis", "racket")):
             tokens.extend(["person", "tennis racket"])
         if any(w in text for w in ("tennis ball", "ball")) and "tennis" in text:
             tokens.append("tennis ball")
-        # 车辆
         if any(w in text for w in ("car", "vehicle", "automobile")):
             tokens.append("car")
-        # 动物
         if any(w in text for w in ("horse", "equestrian")):
             tokens.append("horse")
         if any(w in text for w in ("bird", "swan")):
@@ -213,10 +221,9 @@ def infer_prompt_from_real_vlm(real_vlm_cfg: Dict, image_path: Path, user_intent
             tokens.append("bear")
         if "camel" in text:
             tokens.append("camel")
-        # 随身物品（wild_video-1person 场景）
+        # wild_video-1person
         if any(w in text for w in ("bag", "backpack", "handbag", "luggage", "purse", "suitcase")):
             tokens.append("bag")
-        # 去重保序
         uniq: List[str] = []
         for t in tokens:
             if t not in uniq:
@@ -240,9 +247,11 @@ def coco_classes_from_prompt(prompt: str) -> List[int]:
         ("backpack", 24),
         ("handbag", 26),
         ("suitcase", 28),
+        ("sports ball", 32),
+        ("tennis ball", 32),
         ("tennis racket", 38),
         ("bag", 24),
-        # koala/bear/camel 不在 COCO，跳过
+        # koala/bear/camel  COCO
     ]
     for key, cid in mapping:
         if key in p:
@@ -279,7 +288,7 @@ def detect_boxes_gdino(gdino_obj, image_path: Path, prompt: str, box_thr: float,
     if boxes is None or len(boxes) == 0:
         return np.zeros((0, 4), dtype=np.float32)
     h, w = image_source.shape[:2]
-    # gdino boxes是cx,cy,w,h归一化
+    # gdino boxescx,cy,w,h
     boxes_xyxy = []
     for b in boxes:
         cx, cy, bw, bh = b.tolist()
@@ -296,6 +305,71 @@ def detect_boxes_yolo(yolo_model, image_path: Path, classes: List[int], conf: fl
     if len(results) == 0:
         return np.zeros((0, 4), dtype=np.float32)
     return results[0].boxes.xyxy.detach().cpu().numpy().astype(np.float32)
+
+
+def detect_best_yolo_box(
+    yolo_model,
+    image_path: Path,
+    *,
+    class_id: int,
+    conf: float,
+    max_area_frac: float | None = None,
+    min_area_frac: float | None = None,
+) -> np.ndarray:
+    results = yolo_model(str(image_path), classes=[class_id], conf=conf, verbose=False)
+    if len(results) == 0 or results[0].boxes is None or len(results[0].boxes) == 0:
+        return np.zeros((0, 4), dtype=np.float32)
+    xyxy = results[0].boxes.xyxy.detach().cpu().numpy().astype(np.float32)
+    scores = results[0].boxes.conf.detach().cpu().numpy().astype(np.float32)
+    img = cv2.imread(str(image_path), cv2.IMREAD_COLOR)
+    if img is None:
+        return np.zeros((0, 4), dtype=np.float32)
+    h, w = img.shape[:2]
+    image_area = float(h * w)
+    keep = []
+    for box, score in zip(xyxy, scores):
+        x1, y1, x2, y2 = box.tolist()
+        area_frac = max(0.0, x2 - x1) * max(0.0, y2 - y1) / max(1.0, image_area)
+        if max_area_frac is not None and area_frac > max_area_frac:
+            continue
+        if min_area_frac is not None and area_frac < min_area_frac:
+            continue
+        keep.append((float(score), box))
+    if not keep:
+        return np.zeros((0, 4), dtype=np.float32)
+    keep.sort(key=lambda x: x[0], reverse=True)
+    return keep[0][1][np.newaxis, :].astype(np.float32)
+
+
+def expand_xyxy(boxes: np.ndarray, scale: float, image_shape: tuple[int, int]) -> np.ndarray:
+    if len(boxes) == 0 or scale <= 1.0:
+        return boxes.astype(np.float32)
+    h, w = image_shape
+    expanded = []
+    for box in boxes:
+        x1, y1, x2, y2 = box.tolist()
+        cx = 0.5 * (x1 + x2)
+        cy = 0.5 * (y1 + y2)
+        bw = max(1.0, (x2 - x1) * scale)
+        bh = max(1.0, (y2 - y1) * scale)
+        ex1 = max(0.0, cx - bw / 2.0)
+        ey1 = max(0.0, cy - bh / 2.0)
+        ex2 = min(float(w - 1), cx + bw / 2.0)
+        ey2 = min(float(h - 1), cy + bh / 2.0)
+        expanded.append([ex1, ey1, ex2, ey2])
+    return np.array(expanded, dtype=np.float32)
+
+
+def merge_boxes_unique(base_boxes: np.ndarray, extra_boxes: np.ndarray, iou_thr: float = 0.25) -> np.ndarray:
+    if len(base_boxes) == 0:
+        return extra_boxes.astype(np.float32)
+    if len(extra_boxes) == 0:
+        return base_boxes.astype(np.float32)
+    merged = [b.astype(np.float32) for b in base_boxes]
+    for eb in extra_boxes:
+        if max(iou_xyxy(eb, mb) for mb in merged) < iou_thr:
+            merged.append(eb.astype(np.float32))
+    return np.array(merged, dtype=np.float32)
 
 
 def iou_xyxy(a: np.ndarray, b: np.ndarray) -> float:
@@ -340,7 +414,6 @@ def smooth_boxes(
                 best_nb = nb
                 best_j = j
         if best_iou < float(min_iou_for_update):
-            # 新框与历史框关联太弱时，不更新该对象，抑制错误重锚
             smoothed.append(pb)
             continue
         if one_to_one and best_j >= 0:
@@ -376,7 +449,7 @@ def sam3_segment_frame(sam3_model, frame_path: Path, boxes: np.ndarray) -> Tuple
     if len(boxes) == 0:
         img = cv2.imread(str(frame_path), cv2.IMREAD_COLOR)
         if img is None:
-            raise RuntimeError(f"无法读取帧: {frame_path}")
+            raise RuntimeError(f": {frame_path}")
         h, w = img.shape[:2]
         return np.zeros((h, w), dtype=np.uint8), np.zeros((0, 4), dtype=np.float32)
     bboxes = boxes.tolist()
@@ -384,14 +457,14 @@ def sam3_segment_frame(sam3_model, frame_path: Path, boxes: np.ndarray) -> Tuple
     if not results:
         img = cv2.imread(str(frame_path), cv2.IMREAD_COLOR)
         if img is None:
-            raise RuntimeError(f"无法读取帧: {frame_path}")
+            raise RuntimeError(f": {frame_path}")
         h, w = img.shape[:2]
         return np.zeros((h, w), dtype=np.uint8), np.zeros((0, 4), dtype=np.float32)
     masks_obj = results[0].masks
     if masks_obj is None or masks_obj.data is None:
         img = cv2.imread(str(frame_path), cv2.IMREAD_COLOR)
         if img is None:
-            raise RuntimeError(f"无法读取帧: {frame_path}")
+            raise RuntimeError(f": {frame_path}")
         h, w = img.shape[:2]
         return np.zeros((h, w), dtype=np.uint8), np.zeros((0, 4), dtype=np.float32)
     masks = masks_obj.data.detach().cpu().numpy().astype(np.uint8)
@@ -409,7 +482,6 @@ def match_box_count(boxes: np.ndarray, target_n: int) -> np.ndarray:
         return boxes.astype(np.float32)
     if len(boxes) > target_n:
         return boxes[:target_n].astype(np.float32)
-    # 不足则重复最后一个框
     last = boxes[-1:]
     reps = [boxes.astype(np.float32)]
     while sum(len(x) for x in reps) < target_n:
@@ -424,24 +496,24 @@ def main() -> None:
     policy = load_yaml(Path(cfg["policy_path"]))
     seq_map = {s["sequence_name"]: s for s in policy["sequences"]}
     if args.sequence not in seq_map:
-        raise ValueError(f"sequence 不在policy里: {args.sequence}")
+        raise ValueError(f"sequence policy: {args.sequence}")
     seq_cfg = seq_map[args.sequence]
 
     paths = cfg["paths"]
-    # 先转绝对路径，避免后续 chdir(sam2_dir) 导致相对输出写到错误目录
+    # chdir(sam2_dir)
     project_root = Path.cwd().resolve()
     out_dir = Path(args.output).expanduser().resolve()
     video_dir = (Path(paths["davis_jpeg_root"]).expanduser() / args.sequence).resolve()
     if not video_dir.exists():
-        raise FileNotFoundError(f"序列目录不存在: {video_dir}")
+        raise FileNotFoundError(f": {video_dir}")
     frames = list_frames(video_dir)
     if not frames:
-        raise RuntimeError(f"未找到帧: {video_dir}")
+        raise RuntimeError(f": {video_dir}")
 
     segmentor = cfg.get("segmentor", {})
     backend = str(segmentor.get("backend", "sam2")).lower()
     if backend not in {"sam2", "sam3"}:
-        raise ValueError(f"不支持的segmentor.backend: {backend}")
+        raise ValueError(f"segmentor.backend: {backend}")
     sam2_dir = Path(cfg["sam2"]["sam2_dir"]).expanduser().resolve()
     yolo_weight = cfg["detector"]["yolo_weight"]
     yolo_conf = float(cfg["detector"].get("yolo_conf", 0.3))
@@ -484,12 +556,29 @@ def main() -> None:
             boxes = detect_boxes_gdino(gdino_obj, frame_path, prompt, gdino_box_thr, gdino_text_thr)
         else:
             boxes = detect_boxes_yolo(yolo_model, frame_path, classes=yolo_classes, conf=yolo_conf)
+        # Tennis rescue: the ball is tiny and often unstable under prompt-only GDINO
+        # detection, so add one low-threshold YOLO sports-ball box per frame.
+        if args.sequence == "tennis" or "tennis ball" in prompt.lower():
+            frame_img = cv2.imread(str(frame_path), cv2.IMREAD_COLOR)
+            if frame_img is not None:
+                ball_box = detect_best_yolo_box(
+                    yolo_model,
+                    frame_path,
+                    class_id=32,   # COCO sports ball
+                    conf=0.05,
+                    max_area_frac=0.01,
+                )
+                ball_box = expand_xyxy(ball_box, scale=1.8, image_shape=frame_img.shape[:2])
+                boxes = merge_boxes_unique(boxes, ball_box, iou_thr=0.15)
         return boxes
 
     # stage1: anchor only first frame
     # stage2: first frame + every stride
+    # dense rebuild: anchor every frame with the same detector + segmentor path
     anchor_indices = [0]
-    if args.stage == "stage2":
+    if args.reanchor_every_frame:
+        anchor_indices = list(range(len(frames)))
+    elif args.stage == "stage2":
         anchor_indices = sorted(set([0] + list(range(stage2_stride, len(frames), stage2_stride))))
 
     prev_boxes = None
@@ -501,12 +590,16 @@ def main() -> None:
         boxes = boxes_raw
         if t == 0:
             if len(boxes) == 0:
-                # 极端回退：给一个空框附近的小框，避免完全无锚点导致流程中断
                 boxes = np.array([[0.0, 0.0, 8.0, 8.0]], dtype=np.float32)
             fixed_num_objs = len(boxes)
         assert fixed_num_objs is not None
         boxes = match_box_count(boxes, fixed_num_objs)
-        if args.stage == "stage2" and prev_boxes is not None:
+        should_smooth_anchor = (
+            prev_boxes is not None
+            and not args.disable_anchor_smoothing
+            and (args.stage == "stage2" or args.reanchor_every_frame)
+        )
+        if should_smooth_anchor:
             if quality_gate_enable:
                 drift = mean_best_iou(prev_boxes, boxes)
                 if drift >= quality_gate_iou:
@@ -551,7 +644,7 @@ def main() -> None:
                 predictor.add_new_points_or_box(
                     inference_state=inference_state,
                     frame_idx=int(fid),
-                    obj_id=i + 1,  # 固定obj_id，后续锚点更新同一对象
+                    obj_id=i + 1,  # obj_id
                     box=b.astype(np.float32),
                 )
         for frame_idx, obj_ids, mask_logits in predictor.propagate_in_video(inference_state):
@@ -565,7 +658,7 @@ def main() -> None:
         sam3_cfg = cfg.get("sam3", {})
         sam3_ckpt = str(sam3_cfg.get("checkpoint", "")).strip()
         if not sam3_ckpt:
-            raise ValueError("segmentor.backend=sam3 时必须提供 sam3.checkpoint")
+            raise ValueError("segmentor.backend=sam3  sam3.checkpoint")
         sam3_model = SAM(sam3_ckpt)
         cur_boxes = anchor_boxes[int(anchor_indices[0])].copy()
         anchor_ptr = 1
@@ -581,7 +674,7 @@ def main() -> None:
     png_count = len(list(out_dir.glob("*.png")))
     if png_count != len(frames):
         raise RuntimeError(
-            f"mask落盘数量与帧数不一致: png={png_count}, frames={len(frames)}, out_dir={out_dir}"
+            f"mask: png={png_count}, frames={len(frames)}, out_dir={out_dir}"
         )
 
     meta = RunMeta(
@@ -602,6 +695,9 @@ def main() -> None:
         normalized_prompt_tokens=prompt_decision.normalized_tokens,
         prompt_quality_guard_triggered=prompt_decision.quality_guard_triggered,
         prompt_fallback_reason=prompt_decision.fallback_reason,
+        reanchor_every_frame=bool(args.reanchor_every_frame),
+        disable_anchor_smoothing=bool(args.disable_anchor_smoothing),
+        effective_anchor_stride=1 if args.reanchor_every_frame else (stage2_stride if args.stage == "stage2" else 0),
     )
     meta_path = out_dir / "run_meta.json"
     with meta_path.open("w", encoding="utf-8") as f:

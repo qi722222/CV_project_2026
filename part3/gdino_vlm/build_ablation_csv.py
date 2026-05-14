@@ -1,7 +1,7 @@
 """
 build_ablation_csv.py
 ---------------------
-汇总 YOLO / GDINO Stage1 / GDINO Stage2 的评估CSV到三向消融表。
+ YOLO / GDINO Stage1 / GDINO Stage2 CSV
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ from typing import Dict, List
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="构建GDINO三向消融CSV")
+    parser = argparse.ArgumentParser(description="GDINOCSV")
     parser.add_argument("--yolo_csv", required=True)
     parser.add_argument("--gdino_s1_csv", required=True)
     parser.add_argument("--gdino_s2_csv", required=False, default="")

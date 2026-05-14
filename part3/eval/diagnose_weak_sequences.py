@@ -1,14 +1,14 @@
 """
-diagnose_weak_sequences.py — Task 2: Direction A 弱序列系统诊断
+diagnose_weak_sequences.py — Task 2: Direction A
 
-对 bmx-trees 和 car-shadow 的 SAM3 预测 mask 做逐帧 IoU 分析，
-标记崩溃帧（IoU < 0.5），生成可视化对比图和诊断 JSON。
+ bmx-trees  car-shadow  SAM3  mask  IoU
+IoU < 0.5 JSON
 
-失败类型分类:
-  (a) 目标整体漏检 - pred 区域 < GT 的 10%
-  (b) 部分覆盖不足 - IoU < 0.5 但 pred 非空
-  (c) 边界粗糙     - IoU 在 [0.5, 0.75) 区间（中等质量）
-  (d) 精确追踪     - IoU >= 0.75
+:
+  (a)  - pred  < GT  10%
+  (b)  - IoU < 0.5  pred
+  (c)      - IoU  [0.5, 0.75)
+  (d)      - IoU >= 0.75
 """
 from __future__ import annotations
 
@@ -41,13 +41,13 @@ CRASH_THRESHOLD = 0.5
 def classify_failure(iou: float, pred_area: float, gt_area: float) -> str:
     """Classify frame quality."""
     if pred_area < gt_area * 0.10:
-        return "leakage_miss"       # (a) 目标整体漏检
+        return "leakage_miss"       # (a)
     elif iou < 0.5:
-        return "partial_coverage"   # (b) 部分覆盖不足
+        return "partial_coverage"   # (b)
     elif iou < 0.75:
-        return "rough_boundary"     # (c) 边界粗糙
+        return "rough_boundary"     # (c)
     else:
-        return "good"               # (d) 精确追踪
+        return "good"               # (d)
 
 
 def compute_iou(pred: np.ndarray, gt: np.ndarray) -> Tuple[float, float, float]:

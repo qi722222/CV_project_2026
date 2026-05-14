@@ -1,20 +1,20 @@
 """
-run_phase3_lama_all7.py — LaMa inpainting (GT mask 公平比较协议)
+run_phase3_lama_all7.py — LaMa inpainting (GT mask )
 
-LaMa (Large Mask Inpainting, WACV 2022) — 专为大面积遮挡设计, Fast Fourier Convolution.
-管线: 原始帧 + mask -> LaMa 逐帧修复 keyframes -> ProPainter 传播全序列
+LaMa (Large Mask Inpainting, WACV 2022) — , Fast Fourier Convolution.
+:  + mask -> LaMa  keyframes -> ProPainter
 
-mask 来源:
-  - DAVIS 序列: 统一使用 DAVIS annotation / GT mask (公平 inpaint-only 对比)
-  - wild_video-1person: 保留现有 shadow/SAM3 mask (demo 分组)
+mask :
+  - DAVIS :  DAVIS annotation / GT mask ( inpaint-only )
+  - wild_video-1person:  shadow/SAM3 mask (demo )
 
-输出目录:
+:
   - DAVIS: results/<seq>/direction_c/lama_gtmask_propainter/
-  - wild:  results/<seq>/direction_c/lama_propainter/  (保持原有路径)
+  - wild:  results/<seq>/direction_c/lama_propainter/  ()
 
-注意: LaMa 的 JIT 模型在当前 cuDNN 版本下有兼容性问题.
-     使用 CUDA_VISIBLE_DEVICES='' 强制 CPU 模式, 在 240p 下处理后 resize 到原始分辨率.
-     CPU 模式约 8s/帧 (240p), 80 帧 ≈ 11 分钟/序列.
+: LaMa  JIT  cuDNN .
+      CUDA_VISIBLE_DEVICES=''  CPU ,  240p  resize .
+     CPU  8s/ (240p), 80  ≈ 11 /.
 """
 from __future__ import annotations
 

@@ -1,8 +1,8 @@
 """
-run_phase1_4seq_propainter.py — Phase 1: 为 4 个缺失序列补跑 ProPainter
+run_phase1_4seq_propainter.py — Phase 1:  4  ProPainter
 
-序列: blackswan (50帧), bmx-trees (80帧), horsejump-low (60帧), car-shadow (40帧)
-两张 GPU: 每张运行 2 个序列（串行，避免 OOM）
+: blackswan (50), bmx-trees (80), horsejump-low (60), car-shadow (40)
+ GPU:  2  OOM
 """
 
 import argparse

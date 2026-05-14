@@ -1,0 +1,31 @@
+sequence,method,mask_JM,psnr_proxy,psnr_synth,ssim
+tennis,Part2 YOLO+SAM2+PP,0.9320,32.5143,8.5409,0.8998
+tennis,Dir-A SAM3+PP,0.9468,33.5709,8.5654,0.9160
+tennis,Dir-B VGGT4D (VGGT),0.7571,nan,nan,nan
+tennis,Dir-B VGGT4D+SAM3,0.8735,nan,nan,nan
+tennis,A+B Best Fusion+PP,0.9468,35.1285,9.0410,0.9264
+horsejump-low,Part2 YOLO+SAM2+PP,0.7230,nan,nan,nan
+horsejump-low,Dir-A SAM3+PP,0.8574,33.5237,10.5190,0.9103
+horsejump-low,Dir-B VGGT4D (VGGT),0.6438,nan,nan,nan
+horsejump-low,Dir-B VGGT4D+SAM3,0.9331,nan,nan,nan
+horsejump-low,A+B Best Fusion+PP,0.9331,33.4754,10.2262,0.9085
+car-shadow,Part2 YOLO+SAM2+PP,0.9750,nan,nan,nan
+car-shadow,Dir-A SAM3+PP,0.9749,31.7644,9.3591,0.9121
+car-shadow,Dir-B VGGT4D (VGGT),0.7589,nan,nan,nan
+car-shadow,Dir-B VGGT4D+SAM3,0.9785,nan,nan,nan
+car-shadow,A+B Best Fusion+PP,0.9785,37.4591,9.3517,0.9193
+blackswan,Part2 YOLO+SAM2+PP,0.9550,nan,nan,nan
+blackswan,Dir-A SAM3+PP,0.9549,33.4755,13.0508,0.8844
+blackswan,Dir-B VGGT4D (VGGT),0.2082,nan,nan,nan
+blackswan,Dir-B VGGT4D+SAM3,0.9558,nan,nan,nan
+blackswan,A+B Best Fusion+PP,0.9558,33.4822,13.0517,0.8844
+bmx-trees,Part2 YOLO+SAM2+PP,0.6400,32.3113,10.0456,0.9229
+bmx-trees,Dir-A SAM3+PP,0.7455,35.1406,9.8051,0.9429
+bmx-trees,Dir-B VGGT4D (VGGT),0.4421,nan,nan,nan
+bmx-trees,Dir-B VGGT4D+SAM3,0.6887,nan,nan,nan
+bmx-trees,A+B Best Fusion+PP,0.7455,35.2173,9.8035,0.9432
+koala,Part2 YOLO+SAM2+PP,nan,nan,nan,nan
+koala,Dir-A SAM3+PP,0.9482,33.8071,14.5411,0.8026
+koala,Dir-B VGGT4D (VGGT),0.2353,nan,nan,nan
+koala,Dir-B VGGT4D+SAM3,0.9373,nan,nan,nan
+koala,A+B Best Fusion+PP,0.9482,32.2091,15.5301,0.8346

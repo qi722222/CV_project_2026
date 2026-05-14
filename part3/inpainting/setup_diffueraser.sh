@@ -1,20 +1,18 @@
 #!/usr/bin/env bash
 # =============================================================================
-# setup_diffueraser.sh — DiffuEraser 环境与权重一键配置
+# setup_diffueraser.sh — DiffuEraser
 #
-# 用法：bash part3/inpainting/setup_diffueraser.sh
+# bash part3/inpainting/setup_diffueraser.sh
 #
-# 执行步骤：
-#   1. 克隆 DiffuEraser 仓库到 /data3/jli657/project3/part3/DiffuEraser_workspace/
-#   2. 创建 conda 环境 diffueraser_env (Python 3.9)
-#   3. 安装依赖
-#   4. 下载 HuggingFace 权重 lixiaowen/diffuEraser
-#   5. （可选）下载 SD v1.5 minimal (仅需 scheduler / text_encoder / tokenizer)
+#   1.  DiffuEraser  /data3/jli657/project3/part3/DiffuEraser_workspace/
+#   2.  conda  diffueraser_env (Python 3.9)
+#   3.
+#   4.  HuggingFace  lixiaowen/diffuEraser
+#   5.  SD v1.5 minimal ( scheduler / text_encoder / tokenizer)
 #
-# 注意：
-#   - 权重约 4-8 GB，首次下载需要时间
-#   - 若已有 diffueraser_env 环境，脚本会直接用已有环境
-#   - SD1.5 minimal 路径可与 controlnet_env 共享，如已存在会跳过
+#   -  4-8 GB
+#   -  diffueraser_env
+#   - SD1.5 minimal  controlnet_env
 # =============================================================================
 set -euo pipefail
 

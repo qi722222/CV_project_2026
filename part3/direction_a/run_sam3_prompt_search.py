@@ -1,8 +1,8 @@
 """
 run_sam3_prompt_search.py
 
-对每个 DAVIS 序列尝试多个候选 text prompt，评估 JM/JR/F，选出最优。
-输出汇总表格到 eval/prompt_search_results.csv。
+ DAVIS  text prompt JM/JR/F
+ eval/prompt_search_results.csv
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ from PIL import Image
 
 SAM3_REPO = "/data3/jli657/sam3"
 
-# 候选 prompts（每序列 3-5 个）
+# prompts 3-5
 CANDIDATE_PROMPTS: Dict[str, List[str]] = {
     "tennis": ["person", "tennis player", "player"],
     "bmx-trees": ["cyclist", "biker", "bicycle rider"],

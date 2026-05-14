@@ -1,17 +1,17 @@
 """
 run_keyframe_inpainting_ablation.py — Direction C: Keyframe Inpainting Model Ablation
 
-对比两种关键帧修复模型:
-  - SD1.5 Inpainting (runwayml/stable-diffusion-inpainting) — 专用 SD1.5 inpainting
-  - SDXL Inpainting (diffusers/stable-diffusion-xl-1.0-inpainting-0.1) — 高容量通用
-两者都与 ProPainter 结合，形成 "keyframe repair → ProPainter propagation" 管线。
+:
+  - SD1.5 Inpainting (runwayml/stable-diffusion-inpainting) —  SD1.5 inpainting
+  - SDXL Inpainting (diffusers/stable-diffusion-xl-1.0-inpainting-0.1) —
+ ProPainter  "keyframe repair → ProPainter propagation"
 
-消融设计:
-  pure_propainter  — 纯 ProPainter（已有结果，作为参考基线）
+:
+  pure_propainter  —  ProPainter
   sd15_keyframe    — SD1.5 keyframe + ProPainter
-  sdxl_keyframe    — SDXL keyframe + ProPainter（已有结果，但补跑以统一对比）
+  sdxl_keyframe    — SDXL keyframe + ProPainter
 
-用法:
+:
   conda run -n controlnet_env python3 part3/run_keyframe_inpainting_ablation.py \
     --model sd15 \
     --sequences tennis bmx-trees \

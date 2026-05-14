@@ -1,0 +1,7 @@
+sequence,source,status,n_frames,n_saved,prompt_mode,prompt_frame,JM,JR,F,rough_JM
+tennis,vggt4d,success,70,70,bbox,00000,0.0,0.0,0.0,0.7571360899399955
+blackswan,vggt4d,success,50,50,bbox,00000,0.0,0.0,0.0,0.208184264096809
+horsejump-low,vggt4d,success,60,60,bbox,00000,0.0,0.0,0.0,0.6437997080977175
+koala,vggt4d,success,100,100,bbox,00000,0.0,0.0,0.0,0.23531780125695265
+bmx-trees,vggt4d,success,80,80,bbox,00000,0.0,0.0,0.0,0.44209861157805463
+car-shadow,vggt4d,success,40,40,bbox,00000,0.0,0.0,0.0,0.7589380639641842

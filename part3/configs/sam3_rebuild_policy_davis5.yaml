@@ -3,7 +3,7 @@ defaults:
 
 sequences:
   - sequence_name: tennis
-    prompt_text_for_gdino: person . tennis racket
+    prompt_text_for_gdino: person . tennis racket . tennis ball
     gdino_reanchor_stride: 10
     notes: fast motion + multi-object
 

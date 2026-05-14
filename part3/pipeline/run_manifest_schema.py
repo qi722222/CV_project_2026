@@ -1,64 +1,64 @@
 """
-run_manifest_schema.py — Part3 统一实验 manifest 协议 (schema v1)
+run_manifest_schema.py — Part3  manifest  (schema v1)
 
-每次新实验跑完后，wrapper 脚本必须在输出目录下写入 run_manifest.json，
-然后调用 register_manifest() 或直接运行本脚本来自动进入 part3_deliverables。
+wrapper  run_manifest.json
+ register_manifest()  part3_deliverables
 
-Manifest 字段说明
+Manifest
 -----------------
-必填字段 (required):
-  exp_id          : str  — 实验唯一 ID，例如 diffueraser_gtmask_v1
-  readable_name   : str  — 中英文混合可读名，例如 "DiffuEraser GT mask v1"
-  sequence        : str  — DAVIS 序列或 wild 视频名，例如 "tennis"
-  family          : str  — 方法族，例如 "DiffuEraser", "ProPainter", "LaMa+PP"
-  comparison_type : str  — 必须是 "mask_only" | "inpaint_only" | "full_pipeline"
-  audit_status    : str  — 初始填 "exploratory"，通过验收后改 "stable"/"reference"
-  version         : str  — 例如 "v1", "v2", "legacy"
+ (required):
+  exp_id          : str  —  ID diffueraser_gtmask_v1
+  readable_name   : str  —  "DiffuEraser GT mask v1"
+  sequence        : str  — DAVIS  wild  "tennis"
+  family          : str  —  "DiffuEraser", "ProPainter", "LaMa+PP"
+  comparison_type : str  —  "mask_only" | "inpaint_only" | "full_pipeline"
+  audit_status    : str  —  "exploratory" "stable"/"reference"
+  version         : str  —  "v1", "v2", "legacy"
   mask_protocol   : str  — "davis_gt" | "sam3_mask" | "wild_existing_mask"
-  baseline        : str  — 对比基线 exp_id，首版写 "pure_propainter_gtmask"
+  baseline        : str  —  exp_id "pure_propainter_gtmask"
 
-可选字段 (optional, 有则填):
-  stage_gate      : str  — 进入下一阶段门槛描述
-  next_decision   : str  — 当前结果后下一步怎么做
-  failure_reason  : str  — 失败/superseded 时填写
+ (optional, ):
+  stage_gate      : str  —
+  next_decision   : str  —
+  failure_reason  : str  — /superseded
 
-  script_path     : str  — 运行该实验的脚本路径（相对 part3/ 根）
-  config_path     : str  — 配置文件路径（可选）
-  command         : str  — 完整可复现命令，包含序列参数
+  script_path     : str  —  part3/
+  config_path     : str  —
+  command         : str  —
 
-  output_dir      : str  — 输出目录绝对路径（用于 builder 查找产物）
-  inpaint_out     : str  — inpaint_out.mp4 绝对路径
-  masked_in       : str  — masked_in.mp4 绝对路径
-  mask_frames_dir : str  — mask 帧目录绝对路径
-  log_path        : str  — 运行日志路径
+  output_dir      : str  —  builder
+  inpaint_out     : str  — inpaint_out.mp4
+  masked_in       : str  — masked_in.mp4
+  mask_frames_dir : str  — mask
+  log_path        : str  —
 
-  plain_explanation : str  — 一段话描述这个实验在比什么
-  what_to_check     : str  — 看结果时重点看什么
-  current_takeaway  : str  — 跑完后填写当前结论
+  plain_explanation : str  —
+  what_to_check     : str  —
+  current_takeaway  : str  —
 
-  metrics         : dict  — 若已计算则直接嵌入（否则 builder 会调用 evaluator）
+  metrics         : dict  —  builder  evaluator
     PSNR_proxy    : float
     PSNR_synthetic: float
     SSIM          : float
-    JM            : float  (仅 mask_only / full_pipeline)
+    JM            : float  ( mask_only / full_pipeline)
     JR            : float
     F             : float
 
-注意
-----
-- 实验目录若已有 run_manifest.json，builder 会优先读 manifest，不再扫 results/ 目录。
-- 每次调参产生新版本，必须写新目录（不覆盖旧版），manifest 的 exp_id 中体现版本号。
-- 未写 run_manifest.json 的实验，builder 仍然可以扫 ExperimentDef 列表，但后续新实验
-  必须走 manifest 流程，避免人工补登记。
 
-用法
 ----
-  # 在实验脚本末尾调用
+-  run_manifest.jsonbuilder  manifest results/
+- manifest  exp_id
+-  run_manifest.json builder  ExperimentDef
+   manifest
+
+
+----
+  #
   from part3.pipeline.run_manifest_schema import write_manifest, register_manifest
   write_manifest(output_dir, manifest_dict)
   register_manifest(output_dir / "run_manifest.json")
 
-  # 或单独跑注册
+  #
   python3 part3/pipeline/run_manifest_schema.py --manifest path/to/run_manifest.json
 """
 from __future__ import annotations

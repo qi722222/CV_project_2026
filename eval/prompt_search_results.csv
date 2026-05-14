@@ -1,0 +1,16 @@
+seq,prompt,jm,jr,f
+tennis,person,0.879579,1.0,0.915372
+tennis,tennis player,0.882392,1.0,0.918399
+tennis,player,0.881881,1.0,0.918362
+bmx-trees,cyclist,0.516354,0.7,0.475319
+bmx-trees,biker,0.0,0.0,0.0
+bmx-trees,bicycle rider,0.517475,0.725,0.47318
+blackswan,black swan,0.954299,1.0,0.916867
+blackswan,swan,0.953855,1.0,0.915279
+blackswan,bird,0.954832,1.0,0.919849
+car-shadow,car,0.900791,1.0,0.840553
+car-shadow,vehicle,0.892319,1.0,0.825455
+car-shadow,automobile,0.8979,1.0,0.829979
+horsejump-low,horse,0.728147,1.0,0.785204
+horsejump-low,horse and rider,0.018142,0.0,0.02801
+horsejump-low,equestrian,0.0,0.0,0.0

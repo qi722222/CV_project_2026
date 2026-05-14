@@ -1,0 +1,24 @@
+version: 1
+description: >
+  Stage1 policy VLM force_override=false
+   vlm_on
+
+defaults:
+  gt_root: /home/jli657/shared_data/project3/DAVIS/Annotations/480p
+  pred_root: /home/jli657/my_storage2_1T/project3/part3/outputs/vlm_off_stage1/masks
+  iou_threshold_for_jr: 0.5
+  boundary_tolerance_px: 2
+  strict_missing_predictions: false
+
+sequences:
+  - sequence_name: tennis
+    eval_mode: union_all_instances
+    pred_subdir: tennis
+
+  - sequence_name: blackswan
+    eval_mode: union_all_instances
+    pred_subdir: blackswan
+
+  - sequence_name: horsejump-low
+    eval_mode: union_all_instances
+    pred_subdir: horsejump-low

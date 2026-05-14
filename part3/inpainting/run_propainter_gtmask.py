@@ -1,20 +1,20 @@
 """
-run_propainter_gtmask.py — 纯 ProPainter (GT mask 公平比较协议)
+run_propainter_gtmask.py —  ProPainter (GT mask )
 
-mask 来源:
-  - DAVIS 序列: 统一使用 DAVIS annotation / GT mask (公平 inpaint-only 对比)
-  - wild_video-1person: 保留现有 shadow/SAM3 mask (demo 分组, 不参与 GT 对比)
+mask :
+  - DAVIS :  DAVIS annotation / GT mask ( inpaint-only )
+  - wild_video-1person:  shadow/SAM3 mask (demo ,  GT )
 
-输出目录:
+:
   - DAVIS: results/<seq>/direction_c/pure_propainter_gtmask/
-  - wild:  results/<seq>/direction_c/pure_propainter/  (保持原有路径, 不覆盖)
+  - wild:  results/<seq>/direction_c/pure_propainter/  (, )
 
-用法:
-  # 所有 DAVIS 序列
+:
+  #  DAVIS
   conda run -n propainter_env python3 part3/run_propainter_gtmask.py \
       --seqs tennis bmx-trees blackswan koala horsejump-low car-shadow
 
-  # 单独一个序列
+  #
   conda run -n propainter_env python3 part3/run_propainter_gtmask.py --seqs tennis
 """
 from __future__ import annotations

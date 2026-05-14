@@ -1,7 +1,7 @@
 """
-organize_results.py — Phase 0: 建立统一 results/ 目录并 symlink 已有输出
+organize_results.py — Phase 0:  results/  symlink
 
-统一结构:
+:
   /data3/jli657/project3/part3/results/<seq>/
     mask_frames/         -> masks_final/<seq>/
     direction_a/
@@ -9,9 +9,9 @@ organize_results.py — Phase 0: 建立统一 results/ 目录并 symlink 已有�
         inpaint_out.mp4
         masked_in.mp4
     direction_c/
-      pure_propainter/   (controlnet 消融里的 propainter_pure 结果)
+      pure_propainter/   (controlnet  propainter_pure )
       sdxl_kf5_propainter/
-      lama_propainter/   (待跑)
+      lama_propainter/   ()
     part2_baseline/
       inpaint_out.mp4
       masked_in.mp4

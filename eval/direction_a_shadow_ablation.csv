@@ -1,0 +1,7 @@
+shadow_scale,JM,delta_JM,output_dir
+0.5,0.823067100530886,-0.15178382315877226,/data3/jli657/project3/part3/outputs/direction_a/shadow_geom/car-shadow/scale_0.50
+0.8,0.6814642973867568,-0.29338662630290147,/data3/jli657/project3/part3/outputs/direction_a/shadow_geom/car-shadow/scale_0.80
+1.0,0.5906721222490343,-0.384178801440624,/data3/jli657/project3/part3/outputs/direction_a/shadow_geom/car-shadow/scale_1.00
+1.2,0.5090838605855925,-0.4657670631040658,/data3/jli657/project3/part3/outputs/direction_a/shadow_geom/car-shadow/scale_1.20
+1.5,0.4063005429218757,-0.5685503807677826,/data3/jli657/project3/part3/outputs/direction_a/shadow_geom/car-shadow/scale_1.50
+2.0,0.28497116831009095,-0.6898797553795674,/data3/jli657/project3/part3/outputs/direction_a/shadow_geom/car-shadow/scale_2.00

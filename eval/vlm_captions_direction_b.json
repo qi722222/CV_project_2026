@@ -1,0 +1,32 @@
+{
+  "tennis": {
+    "caption": "a man is playing tennis on a clay court",
+    "vlm_prompts": [
+      "person",
+      "tennis racket"
+    ],
+    "first_frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/tennis/00000.jpg"
+  },
+  "blackswan": {
+    "caption": "a black swan swimming in a pond",
+    "vlm_prompts": [
+      "bird"
+    ],
+    "first_frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/blackswan/00000.jpg"
+  },
+  "horsejump-low": {
+    "caption": "a woman riding a horse in an arena",
+    "vlm_prompts": [
+      "person",
+      "horse"
+    ],
+    "first_frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/horsejump-low/00000.jpg"
+  },
+  "koala": {
+    "caption": "a koloa eating on a branch",
+    "vlm_prompts": [
+      "object"
+    ],
+    "first_frame": "/home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/koala/00000.jpg"
+  }
+}

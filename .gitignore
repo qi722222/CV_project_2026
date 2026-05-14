@@ -1,39 +1,93 @@
-# 模型权重
+# Model weights
 *.pt
 *.pth
 *.ckpt
 *.safetensors
 
-# 中间产物 - mask 缓存
+# Mask caches
 masks_cache/
 **/masks_cache/
 
-# 输出视频
+# Output videos and frames
 outputs/
 **/outputs/
 *.mp4
 *.avi
 *.mov
 
-# Part3 实验产物大目录（视频帧、mask 帧、inpaint 帧等）
+# Part 3 large generated directories
 part3/results/
 part3/results_v2/
 part3/gdino_vlm/masks/
 part3/gdino_vlm/videos/
 part3/gdino_vlm/frames/
 part3/**/__pycache__/
-# Part3 deliverables 里的帧目录（只保留元数据 json/md/csv/sh）
-part3/part3_deliverables/**/mask_frames/
-part3/part3_deliverables/**/repair_frames/
-part3/part3_deliverables/**/keyframes/
 
-# sweep 实验中间产物
+# Part 3 model workspace clones (too large, use pip install separately)
+part3/DiffuEraser_workspace/
+part3/MiniMax_Remover_workspace/
+part3/ObjectClear_workspace/
+
+# Per-experiment frame directories inside deliverables (directories and symlinks)
+part3/part3_deliverables/**/mask_frames
+part3/part3_deliverables/**/repair_frames
+part3/part3_deliverables/**/keyframes
+part3/part3_deliverables/**/shadow_candidate_frames
+part3/part3_deliverables/**/feather_mask_frames
+
+# Per-experiment script copies inside deliverables
+part3/part3_deliverables/**/run_*.py
+part3/part3_deliverables/**/apply_hard_blend.py
+part3/part3_deliverables/**/mask_manifest.json
+
+# Per-experiment metadata files (too many, contain internal notes)
+part3/part3_deliverables/**/experiment_card.md
+part3/part3_deliverables/**/metrics.json
+part3/part3_deliverables/**/run_manifest.json
+part3/part3_deliverables/**/run_meta.json
+part3/part3_deliverables/**/rebuild_manifest.json
+part3/part3_deliverables/**/command.sh
+
+# Generated bulk tables (contain internal notes, large)
+part3/part3_deliverables/experiment_registry.csv
+part3/part3_deliverables/experiment_registry.json
+part3/part3_deliverables/part3_results_full_table.csv
+part3/part3_deliverables/part3_results_full_table.json
+part3/part3_deliverables/part3_results_full_table.md
+
+# Internal-only audit and direction markdown docs
+part3/part3_deliverables/direction_c_diffueraser_ablation.md
+part3/part3_deliverables/direction_c_case_review.md
+part3/part3_deliverables/experiment_line_audit.md
+part3/part3_deliverables/mask_failure_case_review.md
+part3/part3_deliverables/part123_team_comparison.md
+part3/DELIVERABLES_GUIDE_CN.md
+part3/SAM3_REBUILD.md
+
+# Internal report_assets (planning notes, not final report assets)
+report_assets/
+
+# Per-dataset 00_readme.md internal notes
+part3/part3_deliverables/**/00_readme.md
+
+# Temporary evaluation frame directories
+eval/_tmp_*/
+eval/tmp_*/
+**/pred_frames/
+**/tmp_frames/
+**/qual_grids/
+**/*.log
+
+# Masks cache for part 1
+part1/masks_cache_davis/
+
+# Sweep intermediate outputs
 sweep/
 **/sweep/
 logs/
 **/logs/
 
-# Wild video 原始帧
+# Wild video raw frames
 wild_frames/
 
 # Python
@@ -43,18 +97,20 @@ __pycache__/
 *.egg-info/
 .ipynb_checkpoints/
 
-# 环境
+# Environments
 envs/
 .venv/
 venv/
 
-# 系统
+# OS and editor
 .DS_Store
 *.swp
 .vscode/
 .idea/
 
-# 临时
+# Temporary
 *.log
 *.tmp
-part3/DELIVERABLES_GUIDE_CN.md
+
+# Project PDF (not source, too large for git)
+*.pdf

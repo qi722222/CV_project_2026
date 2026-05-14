@@ -1,14 +1,14 @@
 """
-fair_psnr_eval.py — Task 1: 公平 PSNR/SSIM 评估
+fair_psnr_eval.py — Task 1:  PSNR/SSIM
 
-使用统一的 DAVIS GT mask（而非各自的 prediction mask）对 Part2/Part3 inpaint 输出
-计算 PSNR_proxy 和 PSNR_synthetic，消除 mask ROI 差异导致的虚假增益。
+ DAVIS GT mask prediction mask Part2/Part3 inpaint
+ PSNR_proxy  PSNR_synthetic mask ROI
 
-评估分辨率: 统一使用 EVAL_H x EVAL_W (864x480) —— Part3 的原生分辨率，
-Part2 视频会被双线性插值放大到该分辨率（体现 Part2 低分辨率的实际局限）。
+:  EVAL_H x EVAL_W (864x480) —— Part3
+Part2  Part2
 
-PSNR_proxy: 非 mask 区域（frame 内 mask=0 的像素）原始帧 vs inpaint 帧之间的 PSNR
-PSNR_synthetic: 用 cv2.inpaint 在 GT mask 区域生成"合成 GT"，与 inpaint 帧全局比 PSNR
+PSNR_proxy:  mask frame  mask=0  vs inpaint  PSNR
+PSNR_synthetic:  cv2.inpaint  GT mask " GT" inpaint  PSNR
 """
 
 from __future__ import annotations
@@ -22,7 +22,7 @@ from typing import List, Optional, Tuple
 import cv2
 import numpy as np
 
-EVAL_H, EVAL_W = 480, 864   # 统一评估分辨率
+EVAL_H, EVAL_W = 480, 864   #
 
 SEQUENCES = ["tennis", "bmx-trees"]
 

@@ -1,6 +1,6 @@
 """
-从逐帧 mask PNG + DAVIS 帧目录（或可选 inpaint 视频）导出报告用 mp4。
-不依赖 ffmpeg，使用 OpenCV VideoWriter（与 part1 make_full_compare 同构）。
+ mask PNG + DAVIS  inpaint  mp4
+ ffmpeg OpenCV VideoWriter part1 make_full_compare
 """
 
 from __future__ import annotations
@@ -47,9 +47,9 @@ def export_mask_overlay_bundle(
     overlay_alpha: float = 0.45,
 ) -> dict:
     """
-    写入 output_dir: mask.mp4, overlay.mp4, manifest.json；
-    若提供 inpaint_video 且可读，则额外写入 side_by_side.mp4（原 | overlay | inpaint）。
-    返回 manifest 字典。
+     output_dir: mask.mp4, overlay.mp4, manifest.json
+     inpaint_video  side_by_side.mp4 | overlay | inpaint
+     manifest
     """
     masks_dir = masks_dir.resolve()
     frames_dir = frames_dir.resolve()
@@ -59,18 +59,18 @@ def export_mask_overlay_bundle(
     masks = _list_masks(masks_dir)
     frames = _list_frames(frames_dir)
     if not masks:
-        raise FileNotFoundError(f"未找到逐帧 mask PNG: {masks_dir}")
+        raise FileNotFoundError(f" mask PNG: {masks_dir}")
     if not frames:
-        raise FileNotFoundError(f"未找到帧图像: {frames_dir}")
+        raise FileNotFoundError(f": {frames_dir}")
 
     n = min(len(masks), len(frames))
     if n != len(masks) or n != len(frames):
-        # 允许截断到公共长度，但在 manifest 中记录
+        # manifest
         pass
 
     first = cv2.imread(str(frames[0]))
     if first is None:
-        raise RuntimeError(f"无法读取首帧: {frames[0]}")
+        raise RuntimeError(f": {frames[0]}")
     h, w = first.shape[:2]
 
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
@@ -83,7 +83,7 @@ def export_mask_overlay_bundle(
         if len(inpaint_frames) >= n:
             inpaint_frames = inpaint_frames[:n]
         else:
-            inpaint_frames = None  # 太短则不做三列
+            inpaint_frames = None  #
 
     vw_side: Optional[cv2.VideoWriter] = None
     if inpaint_frames is not None and len(inpaint_frames) == n:
@@ -93,12 +93,12 @@ def export_mask_overlay_bundle(
     for i in range(n):
         fr = cv2.imread(str(frames[i]))
         if fr is None:
-            raise RuntimeError(f"无法读取帧: {frames[i]}")
+            raise RuntimeError(f": {frames[i]}")
         if fr.shape[0] != h or fr.shape[1] != w:
             fr = cv2.resize(fr, (w, h))
         m = cv2.imread(str(masks[i]), cv2.IMREAD_GRAYSCALE)
         if m is None:
-            raise RuntimeError(f"无法读取 mask: {masks[i]}")
+            raise RuntimeError(f" mask: {masks[i]}")
         if m.shape[0] != h or m.shape[1] != w:
             m = cv2.resize(m, (w, h), interpolation=cv2.INTER_NEAREST)
         m_bin = (m > 127).astype(np.float32)
@@ -148,10 +148,10 @@ def export_mask_overlay_bundle(
 
 
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="导出 mask / overlay / 可选三列 mp4")
+    p = argparse.ArgumentParser(description=" mask / overlay /  mp4")
     p.add_argument("--masks_dir", required=True, type=Path)
     p.add_argument("--frames_dir", required=True, type=Path)
-    p.add_argument("--output_dir", required=True, type=Path, help="如 part3/gdino_vlm/outputs/tennis_stage1")
+    p.add_argument("--output_dir", required=True, type=Path, help=" part3/gdino_vlm/outputs/tennis_stage1")
     p.add_argument("--inpaint_video", type=Path, default=None)
     p.add_argument("--fps", type=float, default=24.0)
     return p.parse_args()

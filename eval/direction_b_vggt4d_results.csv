@@ -1,0 +1,7 @@
+sequence,status,n_frames,JM,JR,F,mask_coverage_stage1,mask_coverage_stage3,output_dir
+tennis,success,30,0.7571360899399955,1.0,0.02793293821099752,0.08,0.054,/data3/jli657/project3/part3/outputs/direction_b/vggt4d_vggt/tennis
+blackswan,success,20,0.2082,0.0,0.0225,0.030,0.033,/data3/jli657/project3/part3/outputs/direction_b/vggt4d_vggt/blackswan
+horsejump-low,success,20,0.6438,1.0,0.0189,0.091,0.088,/data3/jli657/project3/part3/outputs/direction_b/vggt4d_vggt/horsejump-low
+koala,success,20,0.2353,0.0,0.0274,0.228,0.237,/data3/jli657/project3/part3/outputs/direction_b/vggt4d_vggt/koala
+bmx-trees,success,20,0.4421,0.25,0.0339,0.042,0.039,/data3/jli657/project3/part3/outputs/direction_b/vggt4d_vggt/bmx-trees
+car-shadow,success,15,0.7589380639641842,1.0,0.020509846031698677,0.083,0.080,/data3/jli657/project3/part3/outputs/direction_b/vggt4d_vggt/car-shadow

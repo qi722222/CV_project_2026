@@ -1,14 +1,14 @@
 """
-evaluate_all.py — Phase 4: 统一量化评估
+evaluate_all.py — Phase 4:
 
-对 results/ 下每个 <seq>/<method>/inpaint_out.mp4 计算:
-  - PSNR_proxy: 非 mask 区域 (保留区域) PSNR
-  - PSNR_synthetic: mask 区域 PSNR（对比 GT clean background；若有 GT mask 则计算）
-  - SSIM: 全帧 SSIM
+ results/  <seq>/<method>/inpaint_out.mp4 :
+  - PSNR_proxy:  mask  () PSNR
+  - PSNR_synthetic: mask  PSNR GT clean background GT mask
+  - SSIM:  SSIM
 
-输出: results/evaluation_summary.csv
+: results/evaluation_summary.csv
 
-用法:
+:
   conda run -n controlnet_env python3 part3/evaluate_all.py
   conda run -n controlnet_env python3 part3/evaluate_all.py --seqs koala tennis
 """
@@ -88,9 +88,15 @@ def compute_psnr(img1: np.ndarray, img2: np.ndarray,
 def compute_ssim(img1: np.ndarray, img2: np.ndarray) -> float:
     try:
         from skimage.metrics import structural_similarity
-        return float(structural_similarity(
-            img1, img2, multichannel=True, data_range=255, channel_axis=2
-        ))
+        # channel_axis=2 for newer skimage; fallback to multichannel=True for older versions
+        try:
+            return float(structural_similarity(
+                img1, img2, channel_axis=2, data_range=255
+            ))
+        except TypeError:
+            return float(structural_similarity(
+                img1, img2, multichannel=True, data_range=255
+            ))
     except Exception:
         return float("nan")
 
@@ -221,6 +227,16 @@ def get_methods_for_seq(seq_dir: Path) -> List[tuple]:
                     ver_tag = de_dir.name  # e.g. diffueraser_gtmask_v1
                     methods.append((f"part3_{ver_tag}", de_mp4,
                                     f"Part3 Dir-C DiffuEraser [GT mask / {ver_tag}]"))
+
+    # Direction C: ObjectClear — GT mask (versioned, pattern: objectclear_gtmask_v*)
+    if dc_dir.exists():
+        for oc_dir in sorted(dc_dir.iterdir()):
+            if oc_dir.name.startswith("objectclear_") and oc_dir.is_dir():
+                oc_mp4 = oc_dir / "inpaint_out.mp4"
+                if oc_mp4.exists() or oc_mp4.is_symlink():
+                    ver_tag = oc_dir.name  # e.g. objectclear_gtmask_v1
+                    methods.append((f"part3_{ver_tag}", oc_mp4,
+                                    f"Part3 Dir-C ObjectClear [GT mask / {ver_tag}]"))
 
     return methods
 

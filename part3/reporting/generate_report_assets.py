@@ -1,12 +1,12 @@
 """
-generate_report_assets.py — Phase 5: 报告素材自动生成
+generate_report_assets.py — Phase 5:
 
-产出:
-  1. qualitative_comparison/ — 每序列一张图: [masked_in | part2 | dir_a | dir_c_best]
-  2. quantitative_table.csv / .tex — LaTeX 表格
-  3. video_package/ — 按报告顺序命名的 mp4 文件
+:
+  1. qualitative_comparison/ — : [masked_in | part2 | dir_a | dir_c_best]
+  2. quantitative_table.csv / .tex — LaTeX
+  3. video_package/ —  mp4
 
-用法:
+:
   conda run -n controlnet_env python3 part3/generate_report_assets.py
   conda run -n controlnet_env python3 part3/generate_report_assets.py --seqs tennis koala
 """

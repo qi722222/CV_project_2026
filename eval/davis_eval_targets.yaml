@@ -1,0 +1,47 @@
+version: 1
+description: >
+  DAVIS
+defaults:
+  gt_root: /home/jli657/shared_data/project3/DAVIS/Annotations/480p
+  pred_root: /home/jli657/my_storage2_1T/project3/part2/masks_cache
+  iou_threshold_for_jr: 0.5
+  boundary_tolerance_px: 2
+  strict_missing_predictions: false
+  # Stage2()nullStage1
+  gdino_reanchor_stride: 10
+
+sequences:
+  - sequence_name: bmx-trees
+    eval_mode: union_all_instances
+    pred_subdir: bmx-trees_bbox_union
+    prompt_text_for_gdino: person . bicycle
+    gdino_reanchor_stride: 8
+    notes: re-anchor
+
+  - sequence_name: tennis
+    eval_mode: union_all_instances
+    pred_subdir: tennis_v3
+    prompt_text_for_gdino: person . tennis racket
+    gdino_reanchor_stride: 10
+    notes:
+
+  - sequence_name: blackswan
+    eval_mode: union_all_instances
+    pred_subdir: blackswan
+    prompt_text_for_gdino: black swan
+    gdino_reanchor_stride: 12
+    notes:
+
+  - sequence_name: car-shadow
+    eval_mode: union_all_instances
+    pred_subdir: car-shadow
+    prompt_text_for_gdino: car
+    gdino_reanchor_stride: 10
+    notes: F
+
+  - sequence_name: horsejump-low
+    eval_mode: union_all_instances
+    pred_subdir: horsejump-low
+    prompt_text_for_gdino: horse
+    gdino_reanchor_stride: 8
+    notes:

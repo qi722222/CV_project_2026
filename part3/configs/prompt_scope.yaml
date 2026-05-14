@@ -1,19 +1,17 @@
 # prompt_scope.yaml
-# 全量序列多目标范围与 prompt schema（Direction A/B 共用）
-# 规则：
-#   - hard_targets: 必须全部移除（强约束序列）
-#   - soft_targets: 尽量移除，可随检测效果自适应
-#   - sam3_official_prompts: Official SAM3 video text prompt 候选列表（逐一搜索取最优）
-#   - gdino_prompts: GDINO bounding-box prompt（同时也是 VLM 归一化目标词表）
-#   - vlm_token_map: VLM caption 关键词 → GDINO prompt 映射
+# prompt schemaDirection A/B
+#   - hard_targets:
+#   - soft_targets:
+#   - sam3_official_prompts: Official SAM3 video text prompt
+#   - gdino_prompts: GDINO bounding-box prompt VLM
+#   - vlm_token_map: VLM caption  → GDINO prompt
 
 # =====================================================================
-# 强约束序列（必须多目标联合移除）
 # =====================================================================
 
 sequences:
 
-  # ---- 强约束：wild_video-1person ----
+  # ---- wild_video-1person ----
   - sequence_name: wild_video-1person
     constraint: hard
     hard_targets:
@@ -28,10 +26,9 @@ sequences:
       - "pedestrian"
     video_root: /home/jli657/my_storage2_1T/project3/wild_frames/wild_video-1person
     notes: >
-      人物、肩包、地面阴影三者需同步消除；
-      阴影用形态学膨胀+光流推断，不依赖 SAM3 文字 prompt。
+      + SAM3  prompt
 
-  # ---- 强约束：tennis ----
+  # ---- tennis ----
   - sequence_name: tennis
     constraint: hard
     hard_targets:
@@ -39,9 +36,9 @@ sequences:
       - tennis racket
       - tennis ball
     gdino_prompts: "person . tennis racket . tennis ball"
-    # 已确认最优 prompt（修复 JM 阈值后重测）：
+    # prompt JM
     #   "tennis player with racket and ball" JM=0.9468 > Part2(0.932) ✓
-    #   "tennis player" JM=0.8824（单目标，对比基线）
+    #   "tennis player" JM=0.8824
     sam3_official_prompts:
       - "tennis player with racket and ball"
     sam3_search_prompts:
@@ -51,16 +48,16 @@ sequences:
       - "tennis player holding racket"
     video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/tennis
     notes: >
-      三目标联合。每个目标分别用简单 prompt 运行 SAM3，mask union。
-      复合描述型 prompt（"tennis player with racket and ball"）在 SAM3 中 JM=0，已弃用。
+       prompt  SAM3mask union
+       prompt"tennis player with racket and ball" SAM3  JM=0
 
-  # ---- 强约束：koala ----
+  # ---- koala ----
   - sequence_name: koala
     constraint: hard
     hard_targets:
       - koala
     gdino_prompts: "koala"
-    # 已确认最优：koala JM=0.9482（三个候选都很接近）
+    # koala JM=0.9482
     sam3_official_prompts:
       - "koala"
     sam3_search_prompts:
@@ -68,10 +65,10 @@ sequences:
       - "koala bear"
       - "animal"
     video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/koala
-    notes: 单目标但需纳入全量评估集。"koala" JM=0.9482（最优）。
+    notes: "koala" JM=0.9482
 
 # =====================================================================
-# DAVIS5 标准序列（自适应多目标，prompt 已搜索过最优单目标）
+# DAVIS5 prompt
 # =====================================================================
 
   - sequence_name: bmx-trees
@@ -90,8 +87,8 @@ sequences:
       - "bicycle"
     video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/bmx-trees
     notes: >
-      已知 Official SAM3 best 是 "bicycle rider" (JM=0.517)；
-      多目标策略：骑手用 "bicycle rider"，自行车用 "bicycle" 单独追踪，并集提升覆盖率。
+       Official SAM3 best  "bicycle rider" (JM=0.517)
+       "bicycle rider" "bicycle"
 
   - sequence_name: blackswan
     constraint: soft
@@ -103,7 +100,7 @@ sequences:
       - "black swan"
       - "swan"
     video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/blackswan
-    notes: 单目标，已知 "bird" 最佳 (JM=0.955)。
+    notes:  "bird"  (JM=0.955)
 
   - sequence_name: car-shadow
     constraint: soft
@@ -115,7 +112,7 @@ sequences:
       - "automobile"
       - "vehicle"
     video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/car-shadow
-    notes: 单目标，已知 "car" 最佳 (JM=0.901)。
+    notes:  "car"  (JM=0.901)
 
   - sequence_name: horsejump-low
     constraint: soft
@@ -132,10 +129,9 @@ sequences:
       - "person"
       - "rider"
     video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/horsejump-low
-    notes: 已知 "horse" 最佳 (JM=0.728)；多目标策略：horse+person 分别追踪并集覆盖骑手。
+    notes:  "horse"  (JM=0.728)horse+person
 
 # =====================================================================
-# 扩展集（如有资源则运行）
 # =====================================================================
 
   - sequence_name: bear
@@ -148,7 +144,7 @@ sequences:
       - "grizzly bear"
       - "brown bear"
     video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/bear
-    notes: 扩展集序列，单目标。
+    notes:
 
   - sequence_name: camel
     constraint: soft
@@ -159,13 +155,12 @@ sequences:
       - "camel"
       - "dromedary"
     video_root: /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/camel
-    notes: 扩展集序列，单目标。
+    notes:
 
 # =====================================================================
-# VLM token 归一化映射（Direction B 核心）
+# VLM token Direction B
 # =====================================================================
 vlm_token_map:
-  # 人物类
   "person": "person"
   "man": "person"
   "woman": "person"
@@ -174,22 +169,18 @@ vlm_token_map:
   "player": "person"
   "rider": "person"
   "cyclist": "person"
-  # 运动器材
   "racket": "tennis racket"
   "tennis racket": "tennis racket"
   "bat": "tennis racket"
   "ball": "tennis ball"
   "tennis ball": "tennis ball"
-  # 随身物品
   "bag": "bag"
   "backpack": "bag"
   "handbag": "bag"
   "luggage": "bag"
   "purse": "bag"
-  # 阴影（特殊处理：形态学推断）
   "shadow": "__morphological__"
   "ground shadow": "__morphological__"
-  # 动物
   "koala": "koala"
   "koala bear": "koala"
   "bear": "bear"
@@ -204,7 +195,6 @@ vlm_token_map:
   "automobile": "car"
 
 # =====================================================================
-# 评估集定义
 # =====================================================================
 eval_sets:
   davis5_standard:

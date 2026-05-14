@@ -2,20 +2,20 @@
 run_koala_diffusion_inpaint.py — Direction C: Large-Mask Diffusion Inpainting
 
 Motivation:
-  koala 序列 mask 平均覆盖 26.3%（最高帧 57.6%），ProPainter 因传播锚点严重不足
-  导致视觉效果差。本脚本实验两种 SDXL 策略:
+  koala  mask  26.3% 57.6%ProPainter
+   SDXL :
 
   1. sdxl_kf5  — SDXL keyframe (interval=5) + ProPainter propagation
-     对每隔5帧的关键帧用 SDXL 生成背景，其余帧交由 ProPainter 传播
+     5 SDXL  ProPainter
   2. sdxl_perframe — SDXL inpaint on every frame independently
-     逐帧 SDXL 修复，无 ProPainter 传播，评估"语义生成 vs 时序一致性"权衡
+      SDXL  ProPainter " vs "
 
-对比:
-  - Baseline: pure ProPainter (已有)
-  - sdxl_kf5: SDXL 关键帧 + ProPainter 传播（期望: 提升大遮罩帧语义质量）
-  - sdxl_perframe: 全帧 SDXL（期望: 最强单帧语义但无时序）
+:
+  - Baseline: pure ProPainter ()
+  - sdxl_kf5: SDXL  + ProPainter :
+  - sdxl_perframe:  SDXL:
 
-用法:
+:
   conda run -n controlnet_env python3 part3/run_koala_diffusion_inpaint.py \
     --mode kf5 --gpu 1
 

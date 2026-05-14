@@ -1,0 +1,52 @@
+
+==========================================================================================
+UNIFIED EVALUATION: Direction A vs B vs A+B Fusion
+==========================================================================================
+Seq                Method                          JM   PSNR_prx   PSNR_syn     SSIM
+------------------------------------------------------------------------------------------
+tennis             Part2 YOLO+SAM2+PP         0.9320    32.51     8.54  0.8998
+tennis             Dir-A SAM3+PP              0.9468    33.57     8.57  0.9160
+tennis             Dir-B VGGT4D (VGGT)        0.7571    N/A      N/A     N/A  
+tennis             Dir-B VGGT4D+SAM3          0.8735    N/A      N/A     N/A  
+tennis             A+B Best Fusion+PP         0.9468    35.13     9.04  0.9264
+
+horsejump-low      Part2 YOLO+SAM2+PP         0.7230    N/A      N/A     N/A  
+horsejump-low      Dir-A SAM3+PP              0.8574    33.52    10.52  0.9103
+horsejump-low      Dir-B VGGT4D (VGGT)        0.6438    N/A      N/A     N/A  
+horsejump-low      Dir-B VGGT4D+SAM3          0.9331    N/A      N/A     N/A  
+horsejump-low      A+B Best Fusion+PP         0.9331    33.48    10.23  0.9085
+
+car-shadow         Part2 YOLO+SAM2+PP         0.9750    N/A      N/A     N/A  
+car-shadow         Dir-A SAM3+PP              0.9749    31.76     9.36  0.9121
+car-shadow         Dir-B VGGT4D (VGGT)        0.7589    N/A      N/A     N/A  
+car-shadow         Dir-B VGGT4D+SAM3          0.9785    N/A      N/A     N/A  
+car-shadow         A+B Best Fusion+PP         0.9785    37.46     9.35  0.9193
+
+blackswan          Part2 YOLO+SAM2+PP         0.9550    N/A      N/A     N/A  
+blackswan          Dir-A SAM3+PP              0.9549    33.48    13.05  0.8844
+blackswan          Dir-B VGGT4D (VGGT)        0.2082    N/A      N/A     N/A  
+blackswan          Dir-B VGGT4D+SAM3          0.9558    N/A      N/A     N/A  
+blackswan          A+B Best Fusion+PP         0.9558    33.48    13.05  0.8844
+
+bmx-trees          Part2 YOLO+SAM2+PP         0.6400    32.31    10.05  0.9229
+bmx-trees          Dir-A SAM3+PP              0.7455    35.14     9.81  0.9429
+bmx-trees          Dir-B VGGT4D (VGGT)        0.4421    N/A      N/A     N/A  
+bmx-trees          Dir-B VGGT4D+SAM3          0.6887    N/A      N/A     N/A  
+bmx-trees          A+B Best Fusion+PP         0.7455    35.22     9.80  0.9432
+
+koala              Part2 YOLO+SAM2+PP          N/A      N/A      N/A     N/A  
+koala              Dir-A SAM3+PP              0.9482    33.81    14.54  0.8026
+koala              Dir-B VGGT4D (VGGT)        0.2353    N/A      N/A     N/A  
+koala              Dir-B VGGT4D+SAM3          0.9373    N/A      N/A     N/A  
+koala              A+B Best Fusion+PP         0.9482    32.21    15.53  0.8346
+
+==========================================================================================
+DAVIS-5 MACRO AVERAGES (tennis/horsejump-low/car-shadow/blackswan/bmx-trees)
+==========================================================================================
+Method                      JM avg   PSNR_prx avg   SSIM avg
+------------------------------------------------------------
+Part2 YOLO+SAM2+PP         0.8450    32.41  0.9114
+Dir-A SAM3+PP              0.8959    33.50  0.9131
+Dir-B VGGT4D (VGGT)        0.5620    N/A     N/A  
+Dir-B VGGT4D+SAM3          0.8859    N/A     N/A  
+A+B Best Fusion+PP         0.9119    34.95  0.9164

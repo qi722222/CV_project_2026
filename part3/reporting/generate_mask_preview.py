@@ -1,19 +1,19 @@
 """
-generate_mask_preview.py — 生成 masked_in.mp4 (绿色半透明叠加预览)
+generate_mask_preview.py —  masked_in.mp4 ()
 
-功能:
-  - 输入原始帧目录 + mask PNG 目录
-  - 对每帧将 mask 区域叠加半透明绿色 (与 ProPainter inference_propainter.py 格式完全一致)
-  - 输出 masked_in.mp4 到指定路径
+:
+  -  + mask PNG
+  -  mask  ( ProPainter inference_propainter.py )
+  -  masked_in.mp4
 
-用法:
-  # 为 sdxl_repair/bmx-trees 补生成 masked_in.mp4
+:
+  #  sdxl_repair/bmx-trees  masked_in.mp4
   conda run -n propainter_env python3 part3/generate_mask_preview.py \
     --frames_dir /home/jli657/shared_data/project3/DAVIS/JPEGImages/480p/bmx-trees \
     --masks_dir  /data3/jli657/project3/part3/outputs/sam3_multiobj/masks_final/bmx-trees \
     --output_mp4 /data3/jli657/project3/part3/outputs/sdxl_repair/bmx-trees/masked_in.mp4
 
-  # 指定 dilate 参数（与 ProPainter 默认 dilation=5 一致）
+  #  dilate  ProPainter  dilation=5
   python3 part3/generate_mask_preview.py ... --dilate 5
 """
 

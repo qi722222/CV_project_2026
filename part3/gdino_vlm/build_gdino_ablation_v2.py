@@ -77,7 +77,7 @@ def main() -> None:
     s3s1 = read_rows(Path(args.eval_sam3_s1))
     s3s2 = read_rows(Path(args.eval_sam3_s2))
     lines = [
-        "# GDINO 消融总结（含 SAM2/SAM3 版本字段）",
+        "# GDINO  SAM2/SAM3 ",
         "",
         "| Variant | Macro IoU/J | Macro F |",
         "|---|---:|---:|",
@@ -87,8 +87,8 @@ def main() -> None:
         f"| Part3 SAM3 Stage1 | {macro(s3s1, 'iou_mean'):.6f} | {macro(s3s1, 'F_mean'):.6f} |",
         f"| Part3 SAM3 Stage2 | {macro(s3s2, 'iou_mean'):.6f} | {macro(s3s2, 'F_mean'):.6f} |",
         "",
-        "- 观察：SAM3 Stage1 在 tennis / blackswan / car-shadow 保持较高精度，但 bmx-trees 上明显弱于 SAM2 Stage1。",
-        "- 观察：SAM3 Stage2 当前低于 SAM3 Stage1，说明稀疏重锚在现参数下仍有退化风险。",
+        "- SAM3 Stage1  tennis / blackswan / car-shadow  bmx-trees  SAM2 Stage1",
+        "- SAM3 Stage2  SAM3 Stage1",
         "",
         f"- CSV: `{out_csv}`",
     ]

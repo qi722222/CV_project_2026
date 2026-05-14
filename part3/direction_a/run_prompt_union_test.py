@@ -1,8 +1,8 @@
 """
-run_prompt_union_test.py — Task 3: top-3 union 组合测试
+run_prompt_union_test.py — Task 3: top-3 union
 
-基于 prompt policy search 结果，测试多目标 union 组合对 bmx-trees 的提升效果。
-同时生成最终的 prompt_policy_search JSON 报告。
+ prompt policy search  union  bmx-trees
+ prompt_policy_search JSON
 """
 from __future__ import annotations
 
@@ -36,12 +36,12 @@ SEQUENCES_CFG = {
         ],
         # Union combinations to test (list of prompt lists)
         "union_tests": [
-            ["person and bicycle", "bicycle"],               # 最优+bicycle 部件
-            ["person and bicycle", "person"],                # 最优+person 单独  
-            ["person and bicycle", "bicycle rider"],         # 最优+传统最优
-            ["person and bicycle", "cyclist"],               # 最优+cyclist
-            ["person", "bicycle"],                           # 经典组合
-            ["person and bicycle", "bicycle", "person"],     # 三元组合
+            ["person and bicycle", "bicycle"],               # +bicycle
+            ["person and bicycle", "person"],                # +person
+            ["person and bicycle", "bicycle rider"],         # +
+            ["person and bicycle", "cyclist"],               # +cyclist
+            ["person", "bicycle"],                           #
+            ["person and bicycle", "bicycle", "person"],     #
         ],
     },
     "car-shadow": {

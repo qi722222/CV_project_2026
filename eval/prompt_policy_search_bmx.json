@@ -1,0 +1,98 @@
+{
+  "sequence": "bmx-trees",
+  "task": "Prompt Policy Search + Union Test",
+  "comparison_baseline": {
+    "part2_yolo": 0.6403,
+    "part3_best_prev_union": 0.6308
+  },
+  "single_results": [
+    [
+      "person and bicycle",
+      0.6361
+    ],
+    [
+      "person",
+      0.5193
+    ],
+    [
+      "bicycle rider",
+      0.5175
+    ],
+    [
+      "cyclist",
+      0.5164
+    ],
+    [
+      "person riding bicycle",
+      0.515
+    ],
+    [
+      "mountain biker",
+      0.4419
+    ],
+    [
+      "bicycle",
+      0.2688
+    ]
+  ],
+  "union_results": [
+    {
+      "prompts": [
+        "person and bicycle",
+        "bicycle"
+      ],
+      "jm": 0.631
+    },
+    {
+      "prompts": [
+        "person and bicycle",
+        "person"
+      ],
+      "jm": 0.6372
+    },
+    {
+      "prompts": [
+        "person and bicycle",
+        "bicycle rider"
+      ],
+      "jm": 0.637
+    },
+    {
+      "prompts": [
+        "person and bicycle",
+        "cyclist"
+      ],
+      "jm": 0.6371
+    },
+    {
+      "prompts": [
+        "person",
+        "bicycle"
+      ],
+      "jm": 0.6328
+    },
+    {
+      "prompts": [
+        "person and bicycle",
+        "bicycle",
+        "person"
+      ],
+      "jm": 0.6319
+    }
+  ],
+  "best_single": [
+    "person and bicycle",
+    0.6361
+  ],
+  "best_union": {
+    "prompts": [
+      "person and bicycle",
+      "person"
+    ],
+    "jm": 0.6372
+  },
+  "overall_best": [
+    "['person and bicycle', 'person']",
+    0.6372
+  ]
+}

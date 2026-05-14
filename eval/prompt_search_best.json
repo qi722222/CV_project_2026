@@ -1,0 +1,42 @@
+{
+  "tennis": {
+    "seq": "tennis",
+    "prompt": "tennis player",
+    "jm": 0.882392,
+    "jr": 1.0,
+    "f": 0.918399,
+    "run_dir": "/data3/jli657/project3/part3/outputs/official_sam3_video/prompt_search/tennis_tennis_player"
+  },
+  "bmx-trees": {
+    "seq": "bmx-trees",
+    "prompt": "bicycle rider",
+    "jm": 0.517475,
+    "jr": 0.725,
+    "f": 0.47318,
+    "run_dir": "/data3/jli657/project3/part3/outputs/official_sam3_video/prompt_search/bmx-trees_bicycle_rider"
+  },
+  "blackswan": {
+    "seq": "blackswan",
+    "prompt": "bird",
+    "jm": 0.954832,
+    "jr": 1.0,
+    "f": 0.919849,
+    "run_dir": "/data3/jli657/project3/part3/outputs/official_sam3_video/prompt_search/blackswan_bird"
+  },
+  "car-shadow": {
+    "seq": "car-shadow",
+    "prompt": "car",
+    "jm": 0.900791,
+    "jr": 1.0,
+    "f": 0.840553,
+    "run_dir": "/data3/jli657/project3/part3/outputs/official_sam3_video/prompt_search/car-shadow_car"
+  },
+  "horsejump-low": {
+    "seq": "horsejump-low",
+    "prompt": "horse",
+    "jm": 0.728147,
+    "jr": 1.0,
+    "f": 0.785204,
+    "run_dir": "/data3/jli657/project3/part3/outputs/official_sam3_video/prompt_search/horsejump-low_horse"
+  }
+}

@@ -1,0 +1,5 @@
+sequence,manual_prompts,manual_jm,vlm_caption,vlm_prompts,vlm_jm,legacy_prompts,legacy_jm
+tennis,['tennis player with racket and ball'],0.9468,N/A,N/A,N/A,"['person', 'tennis racket']",0.9515
+blackswan,"['bird', 'black swan', 'swan']",0.9547,N/A,N/A,N/A,['black swan'],0.9543
+horsejump-low,"['horse', 'person']",0.8574,N/A,N/A,N/A,"['horse', 'person']",0.8574
+koala,['koala'],0.9482,N/A,N/A,N/A,['koala'],0.9482

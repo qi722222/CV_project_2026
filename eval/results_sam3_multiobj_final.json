@@ -1,0 +1,63 @@
+{
+  "num_sequences": 6,
+  "num_frames": 400,
+  "macro_iou_j": 0.8714593006984891,
+  "macro_jr": 0.975,
+  "macro_f": 0.8327216275456535,
+  "sequences": [
+    {
+      "sequence_name": "tennis",
+      "num_frames": 70,
+      "iou_j_mean": 0.9467818108016112,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.9703028823406277,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "tennis"
+    },
+    {
+      "sequence_name": "blackswan",
+      "num_frames": 50,
+      "iou_j_mean": 0.9546500020095499,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.9196664931838647,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "blackswan"
+    },
+    {
+      "sequence_name": "car-shadow",
+      "num_frames": 40,
+      "iou_j_mean": 0.8909811793473217,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.8163430801497377,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "car-shadow"
+    },
+    {
+      "sequence_name": "horsejump-low",
+      "num_frames": 60,
+      "iou_j_mean": 0.8573742090865119,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.835552999441763,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "horsejump-low"
+    },
+    {
+      "sequence_name": "koala",
+      "num_frames": 100,
+      "iou_j_mean": 0.9481593393590403,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.7833226490751276,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "koala"
+    },
+    {
+      "sequence_name": "bmx-trees",
+      "num_frames": 80,
+      "iou_j_mean": 0.6308092635868999,
+      "jr_at_tau": 0.85,
+      "f_mean": 0.6711416610828005,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "bmx-trees"
+    }
+  ]
+}

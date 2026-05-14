@@ -1,0 +1,69 @@
+{
+  "sequence": "car-shadow",
+  "task": "Prompt Policy Search + Union Test",
+  "comparison_baseline": {
+    "part2_yolo": 0.9746,
+    "part3_best_prev_single": 0.9008
+  },
+  "single_results": [
+    [
+      "car on street",
+      0.9087
+    ],
+    [
+      "car",
+      0.9008
+    ],
+    [
+      "parked car",
+      0.9003
+    ],
+    [
+      "automobile",
+      0.8979
+    ],
+    [
+      "vehicle",
+      0.8923
+    ]
+  ],
+  "union_results": [
+    {
+      "prompts": [
+        "car on street",
+        "car"
+      ],
+      "jm": 0.9012
+    },
+    {
+      "prompts": [
+        "car on street",
+        "automobile"
+      ],
+      "jm": 0.8983
+    },
+    {
+      "prompts": [
+        "car on street",
+        "car",
+        "automobile"
+      ],
+      "jm": 0.8982
+    }
+  ],
+  "best_single": [
+    "car on street",
+    0.9087
+  ],
+  "best_union": {
+    "prompts": [
+      "car on street",
+      "car"
+    ],
+    "jm": 0.9012
+  },
+  "overall_best": [
+    "car on street",
+    0.9087
+  ]
+}

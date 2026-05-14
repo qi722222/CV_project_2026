@@ -5,13 +5,13 @@ VOID: Video Object and Interaction Deletion
   Base: CogVideoX-Fun-V1.5-5b-InP (5B params, BF16)
   Fine-tuned: void_pass1.safetensors for video object removal
 
-此脚本:
-  1. 将 koala 原始视频裁剪为 VOID 所支持格式 (384x672, ≤72帧)
-  2. 将 ProPainter 二值 mask 转为 VOID quadmask (0=remove, 255=keep)
-  3. 通过 VOID pipeline 生成 koala-removed 视频
-  4. 输出 inpaint_out.mp4 + masked_in.mp4 并与 ProPainter 对比
+:
+  1.  koala  VOID  (384x672, ≤72)
+  2.  ProPainter  mask  VOID quadmask (0=remove, 255=keep)
+  3.  VOID pipeline  koala-removed
+  4.  inpaint_out.mp4 + masked_in.mp4  ProPainter
 
-用法:
+:
   conda run -n controlnet_env python3 part3/run_void_koala.py --gpu 0
 """
 

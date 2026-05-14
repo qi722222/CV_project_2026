@@ -1,0 +1,4 @@
+sequence_name,num_frames,iou_mean,J_mean,JR_at_tau,F_mean,eval_mode,pred_subdir
+tennis,70,0.825544,0.825544,1.000000,0.828218,union_all_instances,tennis
+blackswan,50,0.955966,0.955966,1.000000,0.935478,union_all_instances,blackswan
+horsejump-low,60,0.804176,0.804176,0.933333,0.746345,union_all_instances,horsejump-low

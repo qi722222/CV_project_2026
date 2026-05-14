@@ -1,0 +1,36 @@
+{
+  "num_sequences": 3,
+  "num_frames": 180,
+  "macro_iou_j": 0.8618946338773235,
+  "macro_jr": 0.9777777777777779,
+  "macro_f": 0.8366800776498455,
+  "sequences": [
+    {
+      "sequence_name": "tennis",
+      "num_frames": 70,
+      "iou_j_mean": 0.8255437109381178,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.8282178035377493,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "tennis"
+    },
+    {
+      "sequence_name": "blackswan",
+      "num_frames": 50,
+      "iou_j_mean": 0.9559642185793661,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.9354777381035937,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "blackswan"
+    },
+    {
+      "sequence_name": "horsejump-low",
+      "num_frames": 60,
+      "iou_j_mean": 0.8041759721144867,
+      "jr_at_tau": 0.9333333333333333,
+      "f_mean": 0.7463446913081936,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "horsejump-low"
+    }
+  ]
+}

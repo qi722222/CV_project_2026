@@ -1,0 +1,6 @@
+sequence_name,num_frames,iou_mean,J_mean,JR_at_tau,F_mean,eval_mode,pred_subdir
+tennis,70,0.785951,0.785951,0.957143,0.808257,union_all_instances,tennis
+bmx-trees,80,0.468992,0.468992,0.437500,0.542385,union_all_instances,bmx-trees
+bear,82,0.957133,0.957133,1.000000,0.902584,union_all_instances,bear
+koala,100,0.751795,0.751795,0.800000,0.606279,union_all_instances,koala
+camel,90,0.969271,0.969271,1.000000,0.976512,union_all_instances,camel

@@ -1,0 +1,32 @@
+version: 1
+description: >
+  Part3 sam3_rebuild_v1  DAVIS5 bmx-trees/tennis/blackswan/car-shadow/horsejump-low
+   Part2 results_davis_masks.csv
+
+defaults:
+  gt_root: /home/jli657/shared_data/project3/DAVIS/Annotations/480p
+  pred_root: /home/jli657/my_storage2_1T/project3/part3/outputs/sam3_rebuild_v1/masks/davis5
+  iou_threshold_for_jr: 0.5
+  boundary_tolerance_px: 2
+  strict_missing_predictions: false
+
+sequences:
+  - sequence_name: bmx-trees
+    eval_mode: union_all_instances
+    pred_subdir: bmx-trees
+
+  - sequence_name: tennis
+    eval_mode: union_all_instances
+    pred_subdir: tennis
+
+  - sequence_name: blackswan
+    eval_mode: union_all_instances
+    pred_subdir: blackswan
+
+  - sequence_name: car-shadow
+    eval_mode: union_all_instances
+    pred_subdir: car-shadow
+
+  - sequence_name: horsejump-low
+    eval_mode: union_all_instances
+    pred_subdir: horsejump-low

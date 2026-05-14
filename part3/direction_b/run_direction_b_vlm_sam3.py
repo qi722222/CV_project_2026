@@ -1,11 +1,11 @@
 """
-run_direction_b_vlm_sam3.py — Task 5 Phase 2: VLM SAM3 mask 生成 + 完整 JM 评估
+run_direction_b_vlm_sam3.py — Task 5 Phase 2: VLM SAM3 mask  +  JM
 
-使用预计算的 VLM captions (vlm_captions_direction_b.json)，
-在 sam3_official_env 中运行 SAM3 视频 text prompt 生成 VLM masks，
-并同时计算 manual/legacy/vlm 三组的 JM 值。
+ VLM captions (vlm_captions_direction_b.json)
+ sam3_official_env  SAM3  text prompt  VLM masks
+ manual/legacy/vlm  JM
 
-运行环境: /data3/jli657/envs/sam3_official_env
+: /data3/jli657/envs/sam3_official_env
 """
 from __future__ import annotations
 
@@ -240,10 +240,10 @@ def main():
 
     # Save report
     with open(OUT_REPORT, "w") as f:
-        f.write("# Direction B: Manual vs VLM vs Legacy — 端到端实际运行报告\n\n")
-        f.write("## 核心主张\n")
-        f.write("BLIP VLM 自动生成 caption → token_map → SAM3 prompt，验证自动化路线能否达到与手工 prompt 等价的分割质量。\n\n")
-        f.write("## 实验结果\n\n")
+        f.write("# Direction B: Manual vs VLM vs Legacy — \n\n")
+        f.write("## \n")
+        f.write("BLIP VLM  caption → token_map → SAM3 prompt prompt \n\n")
+        f.write("## \n\n")
         f.write("| Sequence | Manual JM | VLM Caption | VLM Prompts | VLM JM | VLM vs Manual | Legacy JM |\n")
         f.write("|----------|-----------|-------------|-------------|--------|---------------|----------|\n")
         for r in rows:
@@ -251,19 +251,19 @@ def main():
             vlm_jm = float(r.get("vlm_jm", 0)) if r.get("vlm_jm", "ERROR") != "ERROR" else 0
             delta = vlm_jm - manual_jm
             delta_str = f"{delta:+.4f}"
-            verdict = "✅ 无退化" if delta > -0.02 else ("⚠️ 轻微退化" if delta > -0.05 else "❌ 显著退化")
+            verdict = "✅ " if delta > -0.02 else ("⚠️ " if delta > -0.05 else "❌ ")
             f.write(f"| {r['sequence']} | {r.get('manual_jm','')} | {r.get('vlm_caption','')} | "
                     f"{r.get('vlm_prompts','')} | {r.get('vlm_jm','')} | {delta_str} {verdict} | "
                     f"{r.get('legacy_jm','')} |\n")
-        f.write("\n## 结论\n")
-        f.write("- VLM 正确识别: tennis (tennis player), blackswan (black swan), horsejump (horse+rider)\n")
-        f.write("- VLM 识别失误: koala → 'koloa' (BLIP 拼写错误) → token_map fallback 'object'\n")
-        f.write("- 核心结论: 在 VLM 识别正确的 3/4 序列上 VLM JM ≈ Manual JM（无退化）\n")
-        f.write("- koala 失误揭示 VLM caption 质量对自动化链路的重要性（拼写错误→token_map 失败→掩膜质量崩溃）\n")
+        f.write("\n## \n")
+        f.write("- VLM : tennis (tennis player), blackswan (black swan), horsejump (horse+rider)\n")
+        f.write("- VLM : koala → 'koloa' (BLIP ) → token_map fallback 'object'\n")
+        f.write("- :  VLM  3/4  VLM JM ≈ Manual JM\n")
+        f.write("- koala  VLM caption →token_map →\n")
     print(f"[save] {OUT_REPORT}")
 
     # Print summary
-    print("\n=== Direction B 端到端评估结果 ===")
+    print("\n=== Direction B  ===")
     print(f"{'Seq':<15} {'Manual JM':<12} {'VLM JM':<12} {'Delta':<10} {'Legacy JM':<12}")
     for r in rows:
         manual = r.get("manual_jm", "N/A")

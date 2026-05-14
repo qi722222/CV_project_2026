@@ -36,15 +36,15 @@ def row_quality_note(row: Dict[str, str]) -> str:
     ctype = row["comparison_type"]
     status = row["audit_status"]
     if status == "failed":
-        return "失败实验：保留用于解释为什么这条路线暂时不主推。"
+        return ""
     if status in {"partial_or_failed", "superseded", "legacy"}:
-        return "中间或旧版结果：可追溯，但引用时需要看 experiment_card。"
+        return " experiment_card"
     if ctype == "mask_only":
-        return "只看 mask，不应直接和 inpaint 视频指标混排。"
+        return " mask inpaint "
     if ctype == "inpaint_only":
-        return "固定 mask 比修复工具，重点看 masked_in 与 inpaint_out。"
+        return " mask  masked_in  inpaint_out"
     if ctype == "full_pipeline":
-        return "完整流程结果，适合看最终效果，但要能拆回 mask 和 inpaint。"
+        return " mask  inpaint"
     return ""
 
 
@@ -137,29 +137,29 @@ def write_markdown(rows: List[Dict[str, str]]) -> None:
         by_type.setdefault(row["comparison_type"], []).append(row)
 
     lines = [
-        "# Part3 完整结果整理表",
+        "# Part3 ",
         "",
-        "这张表来自 `part3_deliverables/experiment_registry.json` 和每个方法目录下的 `metrics.json`。",
+        " `part3_deliverables/experiment_registry.json`  `metrics.json`",
         "",
-        "## 怎么读",
+        "## ",
         "",
-        "- `mask_only`：只看 mask 指标，不能直接拿 PSNR/SSIM 比。",
-        "- `inpaint_only`：固定 mask 后比较修复工具。",
-        "- `full_pipeline`：mask + 修复工具一起看，是最终视频效果。",
-        "- `failed / partial_or_failed / superseded / legacy`：保留用于追溯，不建议直接作为主结果引用。",
+        "- `mask_only` mask  PSNR/SSIM ",
+        "- `inpaint_only` mask ",
+        "- `full_pipeline`mask + ",
+        "- `failed / partial_or_failed / superseded / legacy`",
         "",
-        "## 汇总",
+        "## ",
         "",
-        f"- 总实验行数：`{len(rows)}`",
+        f"- `{len(rows)}`",
     ]
     for ctype in ["mask_only", "inpaint_only", "full_pipeline"]:
-        lines.append(f"- `{ctype}`：`{len(by_type.get(ctype, []))}`")
+        lines.append(f"- `{ctype}``{len(by_type.get(ctype, []))}`")
     lines.extend(
         [
             "",
-            "## 完整表",
+            "## ",
             "",
-            "| sequence | method_id | ver | mask_protocol | type | status | JM/mask_JM | PSNR_proxy | SSIM | baseline | next_decision | 结论 |",
+            "| sequence | method_id | ver | mask_protocol | type | status | JM/mask_JM | PSNR_proxy | SSIM | baseline | next_decision |  |",
             "|---|---|---|---|---|---|---:|---:|---:|---|---|---|",
         ]
     )

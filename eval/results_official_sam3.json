@@ -1,0 +1,54 @@
+{
+  "num_sequences": 5,
+  "num_frames": 300,
+  "macro_iou_j": 0.7964171863766805,
+  "macro_jr": 0.945,
+  "macro_f": 0.7872310311884511,
+  "sequences": [
+    {
+      "sequence_name": "bmx-trees",
+      "num_frames": 80,
+      "iou_j_mean": 0.5192697940009771,
+      "jr_at_tau": 0.725,
+      "f_mean": 0.4781600041557666,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "bmx-trees"
+    },
+    {
+      "sequence_name": "tennis",
+      "num_frames": 70,
+      "iou_j_mean": 0.8795790643654982,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.91537224439108,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "tennis"
+    },
+    {
+      "sequence_name": "blackswan",
+      "num_frames": 50,
+      "iou_j_mean": 0.9542994345221995,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.9168667933917404,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "blackswan"
+    },
+    {
+      "sequence_name": "car-shadow",
+      "num_frames": 40,
+      "iou_j_mean": 0.9007910684246291,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.8405525741222792,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "car-shadow"
+    },
+    {
+      "sequence_name": "horsejump-low",
+      "num_frames": 60,
+      "iou_j_mean": 0.7281465705700982,
+      "jr_at_tau": 1.0,
+      "f_mean": 0.7852035398813889,
+      "eval_mode": "union_all_instances",
+      "pred_subdir": "horsejump-low"
+    }
+  ]
+}

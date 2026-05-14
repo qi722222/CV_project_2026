@@ -1,0 +1,37 @@
+version: 1
+description: >
+  Part3 sam3_rebuild_v1  mask pred_root  sam3_rebuild_v1 masks
+   Part2 union_all_instances
+
+defaults:
+  gt_root: /home/jli657/shared_data/project3/DAVIS/Annotations/480p
+  pred_root: /home/jli657/my_storage2_1T/project3/part3/outputs/sam3_rebuild_v1/masks/davis5
+  iou_threshold_for_jr: 0.5
+  boundary_tolerance_px: 2
+  strict_missing_predictions: false
+
+sequences:
+  - sequence_name: tennis
+    eval_mode: union_all_instances
+    pred_subdir: tennis
+    notes: Part3 SAM3 rebuild v1
+
+  - sequence_name: bmx-trees
+    eval_mode: union_all_instances
+    pred_subdir: bmx-trees
+    notes: Part3 SAM3 rebuild v1
+
+  - sequence_name: bear
+    eval_mode: union_all_instances
+    pred_subdir: bear
+    notes: Part3 SAM3 rebuild v1
+
+  - sequence_name: koala
+    eval_mode: union_all_instances
+    pred_subdir: koala
+    notes: Part3 SAM3 rebuild v1
+
+  - sequence_name: camel
+    eval_mode: union_all_instances
+    pred_subdir: camel
+    notes: Part3 SAM3 rebuild v1
